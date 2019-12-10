@@ -238,7 +238,7 @@
     SaveAs *newFile = [[SaveAs alloc] init];
     NSString *stringNewFile = [newFile newFile];
     
-    if (stringProjectFile) {
+    if (stringNewFile) {
         
         stringProjectFile = stringNewFile;
         
@@ -296,6 +296,8 @@
 }
 
 - (void)SaveProject {
+    
+    NSLog(stringProjectFile);
     
     // Verify open project
     if (stringProjectFile) {
