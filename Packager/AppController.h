@@ -31,9 +31,6 @@
     int intProjectGroup;
     int intProjectPermissions;
     
-    //NSString *stringTest1;
-    //NSString *stringTest2;
-    
 }
 
 // Menu
