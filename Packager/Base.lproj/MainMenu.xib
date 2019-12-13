@@ -282,11 +282,11 @@
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="Packager" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="461" width="800" height="600"/>
+            <rect key="contentRect" x="335" y="461" width="801" height="600"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
             <value key="minSize" type="size" width="675" height="289"/>
             <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                <rect key="frame" x="0.0" y="0.0" width="801" height="600"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WKb-d7-EyK">
@@ -310,7 +310,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="a2b-HT-66k">
-                        <rect key="frame" x="608" y="556" width="74" height="25"/>
+                        <rect key="frame" x="609" y="556" width="74" height="25"/>
                         <buttonCell key="cell" type="roundTextured" title="Build PKG" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hxT-Qo-Mcf">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -320,7 +320,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zJr-Rz-Ypl">
-                        <rect key="frame" x="701" y="556" width="79" height="25"/>
+                        <rect key="frame" x="702" y="556" width="79" height="25"/>
                         <buttonCell key="cell" type="roundTextured" title="Build DMG" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nmH-p4-K9O">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -675,7 +675,7 @@
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Oe-XU-qRm">
-                        <rect key="frame" x="407" y="392" width="64" height="25"/>
+                        <rect key="frame" x="408" y="392" width="64" height="25"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Payload:" id="fBG-Ya-sRa">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -683,7 +683,10 @@
                         </textFieldCell>
                     </textField>
                     <browser verticalHuggingPriority="750" misplaced="YES" allowsExpansionToolTips="YES" enabled="YES" hasHorizontalScroller="YES" allowsMultipleSelection="YES" allowsEmptySelection="YES" defaultColumnWidth="210" minColumnWidth="210" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="user" translatesAutoresizingMaskIntoConstraints="NO" id="pLO-xw-qUb">
-                        <rect key="frame" x="409" y="20" width="371" height="386"/>
+                        <rect key="frame" x="410" y="20" width="371" height="386"/>
+                        <connections>
+                            <outlet property="delegate" destination="451" id="cqf-PJ-O57"/>
+                        </connections>
                     </browser>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BXh-zx-NGW">
                         <rect key="frame" x="18" y="392" width="64" height="25"/>
@@ -694,7 +697,7 @@
                         </textFieldCell>
                     </textField>
                     <browser verticalHuggingPriority="750" misplaced="YES" allowsExpansionToolTips="YES" enabled="YES" hasHorizontalScroller="YES" allowsMultipleSelection="YES" allowsEmptySelection="YES" defaultColumnWidth="210" minColumnWidth="210" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="user" translatesAutoresizingMaskIntoConstraints="NO" id="450">
-                        <rect key="frame" x="20" y="20" width="371" height="386"/>
+                        <rect key="frame" x="20" y="20" width="372" height="386"/>
                         <connections>
                             <outlet property="delegate" destination="451" id="453"/>
                         </connections>
@@ -738,6 +741,7 @@
         <customObject id="451" customClass="AppController">
             <connections>
                 <outlet property="browser" destination="450" id="JdM-II-zW5"/>
+                <outlet property="browserPayload" destination="pLO-xw-qUb" id="gS8-St-4fL"/>
                 <outlet property="labelHome" destination="JYV-og-qtq" id="flI-u5-Czm"/>
                 <outlet property="labelName" destination="Mwr-pk-bdf" id="1aK-iG-3qQ"/>
                 <outlet property="labelVersion" destination="Ngu-fg-Ep5" id="iwH-xu-VzQ"/>

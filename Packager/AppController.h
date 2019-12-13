@@ -18,18 +18,21 @@
     //NSString *stringLogFile;
     
     NSString *stringApplicationName;
-    NSString *stringAppVersion;
+    NSString *stringApplicationVersion;
     
     // Project metadata
     NSString *stringProjectFile;
+    
+    NSString *stringProjectApplicationName;
+    NSString *stringProjectApplicationVersion;
     
     NSString *stringProjectName;
     NSString *stringProjectVersion;
     NSString *stringProjectHome;
     
-    int intProjectOwner;
-    int intProjectGroup;
-    int intProjectPermissions;
+    NSString *stringProjectOwner;
+    NSString *stringProjectGroup;
+    NSString *stringProjectPermissions;
     
 }
 
@@ -42,14 +45,15 @@
 - (IBAction)menuBuildDMG:(id)sender;
 
 // UI controls
+@property (weak) IBOutlet NSWindow *windowMain;
 @property (strong) IBOutlet NSTextField *labelName;
 @property (strong) IBOutlet NSTextField *labelVersion;
 @property (strong) IBOutlet NSTextField *labelHome;
 @property (weak) IBOutlet NSBrowser *browser;
+@property (weak) IBOutlet NSBrowser *browserPayload;
 @property (strong) FileSystemNode *rootNode;
 @property NSInteger draggedColumnIndex;
 @property (strong) PreviewViewController *sharedPreviewController;
-@property (weak) IBOutlet NSWindow *windowMain;
 
 - (IBAction)buttonNewProject:(NSButton *)sender;
 - (IBAction)buttonOpenProject:(NSButton *)sender;
