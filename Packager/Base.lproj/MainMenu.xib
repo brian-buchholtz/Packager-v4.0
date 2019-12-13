@@ -674,42 +674,17 @@
                             <action selector="buttonSaveProject:" target="451" id="BKP-7V-rUp"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Oe-XU-qRm">
-                        <rect key="frame" x="408" y="392" width="64" height="25"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Payload:" id="fBG-Ya-sRa">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <browser verticalHuggingPriority="750" misplaced="YES" allowsExpansionToolTips="YES" enabled="YES" hasHorizontalScroller="YES" allowsMultipleSelection="YES" allowsEmptySelection="YES" defaultColumnWidth="210" minColumnWidth="210" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="user" translatesAutoresizingMaskIntoConstraints="NO" id="pLO-xw-qUb">
-                        <rect key="frame" x="410" y="20" width="371" height="386"/>
-                        <connections>
-                            <outlet property="delegate" destination="451" id="cqf-PJ-O57"/>
-                        </connections>
-                    </browser>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BXh-zx-NGW">
-                        <rect key="frame" x="18" y="392" width="64" height="25"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Browser:" id="kdO-9w-1TT">
-                            <font key="font" size="13" name=".SFNSText"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                     <browser verticalHuggingPriority="750" misplaced="YES" allowsExpansionToolTips="YES" enabled="YES" hasHorizontalScroller="YES" allowsMultipleSelection="YES" allowsEmptySelection="YES" defaultColumnWidth="210" minColumnWidth="210" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="user" translatesAutoresizingMaskIntoConstraints="NO" id="450">
-                        <rect key="frame" x="20" y="20" width="372" height="386"/>
+                        <rect key="frame" x="20" y="20" width="760" height="386"/>
                         <connections>
                             <outlet property="delegate" destination="451" id="453"/>
                         </connections>
                     </browser>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="BXh-zx-NGW" firstAttribute="leading" secondItem="450" secondAttribute="leading" id="4UB-zi-5C0"/>
                     <constraint firstItem="gxs-Iz-4Fs" firstAttribute="leading" secondItem="fgJ-fD-3qP" secondAttribute="trailing" constant="17" id="8B8-d8-p2B"/>
-                    <constraint firstItem="2Oe-XU-qRm" firstAttribute="leading" secondItem="pLO-xw-qUb" secondAttribute="leading" id="GRf-ya-LxN"/>
                     <constraint firstItem="KKU-Wj-Jyx" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="20" id="Jxw-rC-QLx"/>
                     <constraint firstItem="DZb-MR-siw" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="128" id="KvA-Qy-4B8"/>
-                    <constraint firstItem="pLO-xw-qUb" firstAttribute="leading" secondItem="450" secondAttribute="trailing" constant="18" id="LO0-Cy-T2S"/>
                     <constraint firstItem="gxs-Iz-4Fs" firstAttribute="width" secondItem="fgJ-fD-3qP" secondAttribute="width" id="Q8h-V6-nsK"/>
                     <constraint firstItem="r7N-Fj-OUW" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="242" id="QHv-nv-dVQ"/>
                     <constraint firstItem="piw-Aa-Of7" firstAttribute="leading" secondItem="KKU-Wj-Jyx" secondAttribute="trailing" constant="17" id="QJa-62-5sF"/>
@@ -719,29 +694,22 @@
                     <constraint firstItem="DZb-MR-siw" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" id="Usf-eA-dxD"/>
                     <constraint firstItem="WKb-d7-EyK" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="20" id="Xhm-6R-tVm"/>
                     <constraint firstItem="450" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="20" id="ZPE-PS-lfE"/>
-                    <constraint firstItem="pLO-xw-qUb" firstAttribute="leading" secondItem="450" secondAttribute="trailing" constant="18" id="aWs-QV-c9z"/>
-                    <constraint firstItem="BXh-zx-NGW" firstAttribute="top" secondItem="372" secondAttribute="top" constant="183" id="bnb-lp-Kqn"/>
-                    <constraint firstItem="pLO-xw-qUb" firstAttribute="top" secondItem="372" secondAttribute="top" constant="219" id="erT-Wq-nXG"/>
                     <constraint firstItem="KKU-Wj-Jyx" firstAttribute="width" secondItem="piw-Aa-Of7" secondAttribute="width" id="hBM-4U-ZnW"/>
-                    <constraint firstAttribute="bottom" secondItem="pLO-xw-qUb" secondAttribute="bottom" constant="20" id="hDw-lI-mdo"/>
                     <constraint firstItem="zJr-Rz-Ypl" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" id="hMv-UN-E8B"/>
                     <constraint firstAttribute="bottom" secondItem="450" secondAttribute="bottom" constant="20" id="idq-cv-G5w"/>
+                    <constraint firstAttribute="trailing" secondItem="450" secondAttribute="trailing" constant="21" id="mte-Bo-JIp"/>
                     <constraint firstItem="450" firstAttribute="top" secondItem="372" secondAttribute="top" constant="219" id="pL8-Go-4Js"/>
                     <constraint firstItem="r7N-Fj-OUW" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" id="pdD-bv-TMs"/>
                     <constraint firstAttribute="trailing" secondItem="a2b-HT-66k" secondAttribute="trailing" constant="118" id="pl3-Xe-jNi"/>
-                    <constraint firstAttribute="trailing" secondItem="pLO-xw-qUb" secondAttribute="trailing" constant="20" id="q5r-AF-ECK"/>
-                    <constraint firstItem="450" firstAttribute="width" secondItem="pLO-xw-qUb" secondAttribute="width" id="sRN-OR-BMI"/>
-                    <constraint firstItem="2Oe-XU-qRm" firstAttribute="top" secondItem="372" secondAttribute="top" constant="183" id="viV-SI-rsY"/>
                     <constraint firstAttribute="trailing" secondItem="gxs-Iz-4Fs" secondAttribute="trailing" constant="20" id="wid-nD-tZE"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="681" y="530"/>
+            <point key="canvasLocation" x="680.5" y="530"/>
         </window>
         <customObject id="420" customClass="NSFontManager"/>
         <customObject id="451" customClass="AppController">
             <connections>
                 <outlet property="browser" destination="450" id="JdM-II-zW5"/>
-                <outlet property="browserPayload" destination="pLO-xw-qUb" id="gS8-St-4fL"/>
                 <outlet property="labelHome" destination="JYV-og-qtq" id="flI-u5-Czm"/>
                 <outlet property="labelName" destination="Mwr-pk-bdf" id="1aK-iG-3qQ"/>
                 <outlet property="labelVersion" destination="Ngu-fg-Ep5" id="iwH-xu-VzQ"/>

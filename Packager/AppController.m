@@ -91,17 +91,17 @@
     
 }
 
-- (id)rootItemForBrowserPayload:(NSBrowser *)browserPayload {
+//- (id)rootItemForBrowserPayload:(NSBrowser *)browserPayload {
     
-    if (self.rootNode == nil) {
+//    if (self.rootNode == nil) {
         
-        _rootNode = [[FileSystemNode alloc] initWithURL:[NSURL fileURLWithPath:NSOpenStepRootDirectory()]];
+//        _rootNode = [[FileSystemNode alloc] initWithURL:[NSURL fileURLWithPath:NSOpenStepRootDirectory()]];
         
-    }
+//    }
     
-    return self.rootNode;
+//    return self.rootNode;
     
-}
+//}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Menu
