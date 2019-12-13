@@ -18,18 +18,14 @@
 
 @interface AppController ()
 
-// Please note bug #24527817
-// NSBrowser column titles draw sporadic when navigating back with left arrow key (10.11)
-//
-
 @end
 
 @implementation AppController
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Complex browser initialization
+// Main application initialization
 
-- (void)awakeFromNib {
+- (void) applicationWillFinishLaunching: (NSNotification *) not {
     
     // Set application metadata
     stringApplicationName = @"VMware Packager";
@@ -40,11 +36,20 @@
     NSString *stringSettingsPath = urlSettingsPath.path;
     stringSettingsFile = [NSString stringWithFormat:@"%@/%@", stringSettingsPath, @"Packager.settings"];
     
+    // Update application window title
+    NSString *stringApplicationTitle = [NSString stringWithFormat:@"%@ - %@", stringApplicationName, @"(New Project)"];
+    [self.windowMain setTitle:stringApplicationTitle];
     
-    
-    
-    
-    
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Complex browser initialization
+//
+// Please note bug #24527817
+// NSBrowser column titles draw sporadic when navigating back with left arrow key (10.11)
+//
+
+- (void)awakeFromNib {
     
     // use a custom cell class for each browser item
     [self.browser setCellClass:[FileSystemBrowserCell class]];
@@ -74,11 +79,6 @@
     return self.rootNode;
     
 }
-
-
-
-
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Menu
@@ -242,6 +242,10 @@
         
         stringProjectFile = stringNewFile;
         
+        // Update application window title
+        NSString *stringApplicationTitle = [NSString stringWithFormat:@"%@ - %@", stringApplicationName, stringProjectFile];
+        [self.windowMain setTitle:stringApplicationTitle];
+        
         [Logger setLogEvent:@"New file open successful", nil];
         
     }
@@ -278,7 +282,11 @@
         NSString *ProjectGroup = dictProject[@"ProjectGroup"];
         NSString *ProjectPermissions = dictProject[@"ProjectPermissions"];
         
-        // Test
+        // Update application window title
+        NSString *stringApplicationTitle = [NSString stringWithFormat:@"%@ - %@", stringApplicationName, stringProjectFile];
+        [self.windowMain setTitle:stringApplicationTitle];
+        
+        // Update controls
         [self.labelName setStringValue:ProjectName];
         [self.labelVersion setStringValue:ProjectVersion];
         [self.labelHome setStringValue:ProjectHome];
@@ -296,8 +304,6 @@
 }
 
 - (void)SaveProject {
-    
-    NSLog(stringProjectFile);
     
     // Verify open project
     if (stringProjectFile) {
