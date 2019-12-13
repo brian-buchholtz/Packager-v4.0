@@ -50,7 +50,6 @@
 @property (strong) IBOutlet NSTextField *labelVersion;
 @property (strong) IBOutlet NSTextField *labelHome;
 @property (weak) IBOutlet NSBrowser *browser;
-@property (weak) IBOutlet NSBrowser *browserPayload;
 @property (strong) FileSystemNode *rootNode;
 @property NSInteger draggedColumnIndex;
 @property (strong) PreviewViewController *sharedPreviewController;
@@ -80,5 +79,6 @@
 - (void)BuildPKG;
 - (void)BuildDMG;
 - (void)Browse;
+- (void)ChangeRoot;
 
 @end
