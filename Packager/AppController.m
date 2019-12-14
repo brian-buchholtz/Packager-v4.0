@@ -317,9 +317,9 @@
         stringProjectHome = self.labelHome.stringValue;
         
         // Default values
-        NSString *stringProjectOwner = @"1";
-        NSString *stringProjectGroup = @"1";
-        NSString *stringProjectPermissions = @"777";
+        stringProjectOwner = @"1";
+        stringProjectGroup = @"1";
+        stringProjectPermissions = @"777";
         
         // Write project file
         [Project writeProject:stringProjectFile ApplicationName:stringApplicationName ApplicationVersion:stringApplicationVersion ProjectName:stringProjectName ProjectVersion:stringProjectVersion ProjectHome:stringProjectHome ProjectOwner:stringProjectOwner ProjectGroup:stringProjectGroup ProjectPermissions:stringProjectPermissions];

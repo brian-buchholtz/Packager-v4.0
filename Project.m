@@ -67,43 +67,35 @@
     
     // Application Name
     NSArray *arrayApplicationName = [xmlProject nodesForXPath:@"./Settings/Application/@Name" error:&error];
-    NSXMLElement *elementApplicationName;
-    elementApplicationName = [arrayApplicationName objectAtIndex:0];
+    NSXMLElement *elementApplicationName = [arrayApplicationName objectAtIndex:0];
     
     // Application Version
     NSArray *arrayApplicationVersion = [xmlProject nodesForXPath:@"./Settings/Application/@Version" error:&error];
-    NSXMLElement *elementApplicationVersion;
-    elementApplicationVersion = [arrayApplicationVersion objectAtIndex:0];
+    NSXMLElement *elementApplicationVersion = [arrayApplicationVersion objectAtIndex:0];
     
     // Project Name
     NSArray *arrayProjectName = [xmlProject nodesForXPath:@"./Settings/Project/@Name" error:&error];
-    NSXMLElement *elementProjectName;
-    elementProjectName = [arrayProjectName objectAtIndex:0];
+    NSXMLElement *elementProjectName = [arrayProjectName objectAtIndex:0];
     
     // Project Version
     NSArray *arrayProjectVersion = [xmlProject nodesForXPath:@"./Settings/Project/@Version" error:&error];
-    NSXMLElement *elementProjectVersion;
-    elementProjectVersion = [arrayProjectVersion objectAtIndex:0];
+    NSXMLElement *elementProjectVersion = [arrayProjectVersion objectAtIndex:0];
     
     // Project Home
     NSArray *arrayProjectHome = [xmlProject nodesForXPath:@"./Settings/Project/@Home" error:&error];
-    NSXMLElement *elementProjectHome;
-    elementProjectHome = [arrayProjectHome objectAtIndex:0];
+    NSXMLElement *elementProjectHome = [arrayProjectHome objectAtIndex:0];
     
     // Project Owner
     NSArray *arrayProjectOwner = [xmlProject nodesForXPath:@"./Settings/Project/@Owner" error:&error];
-    NSXMLElement *elementProjectOwner;
-    elementProjectOwner = [arrayProjectOwner objectAtIndex:0];
+    NSXMLElement *elementProjectOwner = [arrayProjectOwner objectAtIndex:0];
     
     // Project Group
     NSArray *arrayProjectGroup = [xmlProject nodesForXPath:@"./Settings/Project/@Group" error:&error];
-    NSXMLElement *elementProjectGroup;
-    elementProjectGroup = [arrayProjectGroup objectAtIndex:0];
+    NSXMLElement *elementProjectGroup = [arrayProjectGroup objectAtIndex:0];
     
     // Project Permissions
     NSArray *arrayProjectPermissions = [xmlProject nodesForXPath:@"./Settings/Project/@Permissions" error:&error];
-    NSXMLElement *elementProjectPermissions;
-    elementProjectPermissions = [arrayProjectPermissions objectAtIndex:0];
+    NSXMLElement *elementProjectPermissions = [arrayProjectPermissions objectAtIndex:0];
     
     [Logger setLogEvent:@"Parsing project file: ", stringProjectFile, nil];
     
