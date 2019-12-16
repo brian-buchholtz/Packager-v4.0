@@ -448,30 +448,12 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <comboBox verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IG5-FH-hpM">
-                                    <rect key="frame" x="75" y="71" width="200" height="26"/>
-                                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="CYB-Dh-IKu">
-                                        <font key="font" metaFont="system"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        <objectValues>
-                                            <string>Item 1</string>
-                                            <string>Item 2</string>
-                                            <string>Item 3</string>
-                                        </objectValues>
-                                    </comboBoxCell>
-                                </comboBox>
                                 <comboBox verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SOu-cP-WgA">
                                     <rect key="frame" x="75" y="39" width="200" height="26"/>
                                     <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="ar7-qe-30O">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        <objectValues>
-                                            <string>Item 1</string>
-                                            <string>Item 2</string>
-                                            <string>Item 3</string>
-                                        </objectValues>
                                     </comboBoxCell>
                                 </comboBox>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aNg-El-P9A">
@@ -609,6 +591,20 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                 </button>
+                                <comboBox verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IG5-FH-hpM">
+                                    <rect key="frame" x="75" y="71" width="200" height="26"/>
+                                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="CYB-Dh-IKu">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="371" id="MJl-OB-2U0"/>
+                                        </connections>
+                                    </comboBoxCell>
+                                    <connections>
+                                        <action selector="comboboxOwner:" target="451" id="WNJ-mt-o1p"/>
+                                    </connections>
+                                </comboBox>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="yj0-tw-CXb" firstAttribute="top" secondItem="piw-Aa-Of7" secondAttribute="top" constant="8" id="0Iy-Ls-otw"/>
@@ -710,6 +706,10 @@
         <customObject id="451" customClass="AppController">
             <connections>
                 <outlet property="browser" destination="450" id="JdM-II-zW5"/>
+                <outlet property="comboboxGroup" destination="SOu-cP-WgA" id="N3j-qq-gb7"/>
+                <outlet property="comboboxOwner" destination="IG5-FH-hpM" id="mku-FF-aQ7"/>
+                <outlet property="comboboxcellGroup" destination="ar7-qe-30O" id="KQE-tr-EHU"/>
+                <outlet property="comboboxcellOwner" destination="CYB-Dh-IKu" id="ngn-YY-VjH"/>
                 <outlet property="labelHome" destination="JYV-og-qtq" id="flI-u5-Czm"/>
                 <outlet property="labelName" destination="Mwr-pk-bdf" id="1aK-iG-3qQ"/>
                 <outlet property="labelVersion" destination="Ngu-fg-Ep5" id="iwH-xu-VzQ"/>

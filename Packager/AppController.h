@@ -49,6 +49,11 @@
 @property (strong) IBOutlet NSTextField *labelName;
 @property (strong) IBOutlet NSTextField *labelVersion;
 @property (strong) IBOutlet NSTextField *labelHome;
+@property (strong) IBOutlet NSComboBox *comboboxOwner;
+@property (strong) IBOutlet NSComboBoxCell *comboboxcellOwner;
+@property (strong) IBOutlet NSComboBox *comboboxGroup;
+@property (strong) IBOutlet NSComboBoxCell *comboboxcellGroup;
+
 @property (weak) IBOutlet NSBrowser *browser;
 @property (strong) FileSystemNode *rootNode;
 @property NSInteger draggedColumnIndex;
@@ -60,8 +65,10 @@
 - (IBAction)buttonBuildPKG:(NSButton *)sender;
 - (IBAction)buttonBuildDMG:(NSButton *)sender;
 - (IBAction)buttonBrowse:(NSButton *)sender;
+
 - (IBAction)comboboxOwner:(NSComboBox *)sender;
 - (IBAction)comboboxGroup:(NSComboBox *)sender;
+
 - (IBAction)checkboxOwnerRead:(NSButton *)sender;
 - (IBAction)checkboxOwnerWrite:(NSButton *)sender;
 - (IBAction)checkboxOwnerExecute:(NSButton *)sender;
@@ -81,6 +88,8 @@
 - (void)Browse;
 - (void)ReadUsers;
 - (void)ReadGroups;
+- (void)GetControls;
+- (void)SetControls;
 - (void)ChangeRoot;
 
 @end

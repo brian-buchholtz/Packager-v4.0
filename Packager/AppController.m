@@ -42,6 +42,10 @@
     NSString *stringApplicationTitle = [NSString stringWithFormat:@"%@ - %@", stringApplicationName, @"(Empty Project)"];
     [self.windowMain setTitle:stringApplicationTitle];
     
+    // Load comboboxes
+    [self ReadUsers];
+    [self ReadGroups];
+    
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -291,10 +295,8 @@
         NSString *stringApplicationTitle = [NSString stringWithFormat:@"%@ - %@", stringApplicationName, stringProjectFile];
         [self.windowMain setTitle:stringApplicationTitle];
         
-        // Update labels
-        [self.labelName setStringValue:stringProjectName];
-        [self.labelVersion setStringValue:stringProjectVersion];
-        [self.labelHome setStringValue:stringProjectHome];
+        // Update controls
+        [self SetControls];
         
         // Update browser
         [self ChangeRoot];
@@ -317,13 +319,9 @@
     if (stringProjectFile) {
         
         // Read control values
-        stringProjectName = self.labelName.stringValue;
-        stringProjectVersion = self.labelVersion.stringValue;
-        stringProjectHome = self.labelHome.stringValue;
+        [self GetControls];
         
         // Default values
-        stringProjectOwner = @"1";
-        stringProjectGroup = @"1";
         stringProjectPermissions = @"777";
         
         // Write project file
@@ -344,15 +342,11 @@
     
     [Logger setLogEvent:@"Build PKG", nil];
     
-    [self ReadUsers];
-    
 }
 
 - (void)BuildDMG {
     
     [Logger setLogEvent:@"Build DMG", nil];
-    
-    [self ReadGroups];
     
 }
 
@@ -387,9 +381,35 @@
     NSString *stringPasswdPath = @"/etc/passwd";
     DDFileReader *readerPasswd = [[DDFileReader alloc] initWithFilePath:stringPasswdPath];
     
-    [readerPasswd enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+    [readerPasswd enumerateLinesUsingBlock:^(NSString *stringLine, BOOL *boolStop) {
         
-        NSLog(@"read line: %@", line);
+        unichar unicharFirst = [stringLine characterAtIndex:0];
+        
+        if (unicharFirst == '#') {
+            
+            //NSLog(@"Ignore: %@", stringLine);
+            
+        }
+        
+        else {
+            
+            NSArray *arrayLine = [stringLine componentsSeparatedByString: @":"];
+            NSString *stringUser = [arrayLine objectAtIndex:0];
+            NSString *stringUID = [arrayLine objectAtIndex:2];
+            NSString *stringFormattedUser = [NSString stringWithFormat:@"%@ (%@)", stringUser, stringUID];
+            NSInteger intUID = [stringUID integerValue];
+            
+            //NSLog(@"Good: %@", stringFormattedUser);
+            
+            [self.comboboxOwner addItemWithObjectValue:stringFormattedUser];
+            
+            //if (intUID >= 0) {
+            
+            //    [self.comboboxOwner insertItemWithObjectValue:stringFormattedUser atIndex:intUID];
+                
+            //}
+            
+        }
         
     }];
     
@@ -400,11 +420,67 @@
     NSString *stringGroupPath = @"/etc/group";
     DDFileReader *readerGroup = [[DDFileReader alloc] initWithFilePath:stringGroupPath];
     
-    [readerGroup enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+    [readerGroup enumerateLinesUsingBlock:^(NSString *stringLine, BOOL *boolStop) {
         
-        NSLog(@"read line: %@", line);
+        unichar unicharFirst = [stringLine characterAtIndex:0];
+        
+        if (unicharFirst == '#') {
+            
+            //NSLog(@"Ignore: %@", stringLine);
+            
+        }
+        
+        else {
+            
+            NSArray *arrayLine = [stringLine componentsSeparatedByString: @":"];
+            NSString *stringGroup = [arrayLine objectAtIndex:0];
+            NSString *stringGID = [arrayLine objectAtIndex:2];
+            NSString *stringFormattedGroup = [NSString stringWithFormat:@"%@ (%@)", stringGroup, stringGID];
+            NSInteger intGID = [stringGID integerValue];
+            
+            //NSLog(@"Good: %@", stringFormattedGroup);
+            
+            [self.comboboxGroup addItemWithObjectValue:stringFormattedGroup];
+            
+            //if (intGID >= 0) {
+            
+            //    [self.comboboxGroup insertItemWithObjectValue:stringFormattedGroup atIndex:intGID];
+            
+            //}
+            
+        }
         
     }];
+    
+}
+
+- (void)GetControls {
+    
+    // Labels
+    stringProjectName = [self.labelName stringValue];
+    stringProjectVersion = [self.labelVersion stringValue];
+    stringProjectHome = [self.labelHome stringValue];
+    
+    // Comboboxes
+    stringProjectOwner = [self.comboboxOwner objectValueOfSelectedItem];
+    stringProjectGroup = [self.comboboxGroup objectValueOfSelectedItem];
+    
+    // Checkboxes
+    
+}
+
+- (void)SetControls {
+    
+    // Labels
+    [self.labelName setStringValue:stringProjectName];
+    [self.labelVersion setStringValue:stringProjectVersion];
+    [self.labelHome setStringValue:stringProjectHome];
+    
+    // Comboboxes
+    [self.comboboxOwner selectItemWithObjectValue:stringProjectOwner];
+    [self.comboboxGroup selectItemWithObjectValue:stringProjectGroup];
+    
+    // Checkboxes
     
 }
 
