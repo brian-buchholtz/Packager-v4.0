@@ -9,5 +9,15 @@
 #ifndef ReadUsers_h
 #define ReadUsers_h
 
+#import <Foundation/Foundation.h>
+
+@interface ReadUsers : NSObject {
+    
+}
+
+//+ (NSMutableArray *)readUsers;
+- (void)readUsers;
+
+@end
 
 #endif /* ReadUsers_h */

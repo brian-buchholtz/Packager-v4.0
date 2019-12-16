@@ -17,6 +17,7 @@
 		532C3F981C470C3800A57614 /* PreviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532C3F931C470C3800A57614 /* PreviewView.xib */; };
 		5373D0AC1C47112E00353813 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5373D0AA1C47112E00353813 /* Credits.rtf */; };
 		53BEC0921C483578006A0122 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BEC0911C483578006A0122 /* PreviewViewController.m */; };
+		D31FABCC23A7D8F800865CF6 /* DDFileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FABCB23A7D8F800865CF6 /* DDFileReader.m */; };
 		D3F6B8C123A00A2F0047A481 /* FilePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F6B8AE23A00A2F0047A481 /* FilePicker.m */; };
 		D3F6B8C223A00A2F0047A481 /* ReadUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F6B8B023A00A2F0047A481 /* ReadUsers.m */; };
 		D3F6B8C323A00A2F0047A481 /* ReadGroups.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F6B8B223A00A2F0047A481 /* ReadGroups.m */; };
@@ -48,6 +49,8 @@
 		53BEC0911C483578006A0122 /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreviewViewController.m; path = Packager/PreviewViewController.m; sourceTree = "<group>"; };
 		53FE043A1C5033DE00096C1B /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Packager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packager.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D31FABCA23A7D80000865CF6 /* DDFileReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDFileReader.h; sourceTree = "<group>"; };
+		D31FABCB23A7D8F800865CF6 /* DDFileReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileReader.m; sourceTree = "<group>"; };
 		D3F6B8AD23A00A2F0047A481 /* FilePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilePicker.h; sourceTree = "<group>"; };
 		D3F6B8AE23A00A2F0047A481 /* FilePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilePicker.m; sourceTree = "<group>"; };
 		D3F6B8AF23A00A2F0047A481 /* ReadUsers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadUsers.h; sourceTree = "<group>"; };
@@ -85,6 +88,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D31FABC923A7D7CD00865CF6 /* Open Source */,
 				D3F6B8CD23A03C540047A481 /* VMware */,
 				D3F6B8CE23A03C5D0047A481 /* Apple */,
 				D3F6B8CF23A03C6A0047A481 /* Main */,
@@ -121,6 +125,15 @@
 				53FE043A1C5033DE00096C1B /* ReadMe.md */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		D31FABC923A7D7CD00865CF6 /* Open Source */ = {
+			isa = PBXGroup;
+			children = (
+				D31FABCA23A7D80000865CF6 /* DDFileReader.h */,
+				D31FABCB23A7D8F800865CF6 /* DDFileReader.m */,
+			);
+			name = "Open Source";
 			sourceTree = "<group>";
 		};
 		D3F6B8CD23A03C540047A481 /* VMware */ = {
@@ -254,6 +267,7 @@
 				532C3F891C470C1F00A57614 /* FileSystemNode.m in Sources */,
 				D3F6B8C723A00A2F0047A481 /* Settings.m in Sources */,
 				53BEC0921C483578006A0122 /* PreviewViewController.m in Sources */,
+				D31FABCC23A7D8F800865CF6 /* DDFileReader.m in Sources */,
 				D3F6B8C623A00A2F0047A481 /* BrowsePath.m in Sources */,
 				D3F6B8C323A00A2F0047A481 /* ReadGroups.m in Sources */,
 				D3F6B8CA23A00A2F0047A481 /* SaveAs.m in Sources */,

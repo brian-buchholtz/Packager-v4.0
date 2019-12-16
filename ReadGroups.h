@@ -9,5 +9,14 @@
 #ifndef ReadGroups_h
 #define ReadGroups_h
 
+#import <Foundation/Foundation.h>
+
+@interface ReadGroups : NSObject {
+    
+}
+
+
+
+@end
 
 #endif /* ReadGroups_h */

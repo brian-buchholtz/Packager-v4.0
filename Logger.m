@@ -22,7 +22,7 @@
 
 + (void)setLogEvent:(id) first, ... {
     
-    NSString * stringResult = @"";
+    NSString *stringResult = @"";
     id eachArg;
     va_list alist;
     

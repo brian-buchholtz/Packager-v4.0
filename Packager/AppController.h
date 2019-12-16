@@ -79,6 +79,8 @@
 - (void)BuildPKG;
 - (void)BuildDMG;
 - (void)Browse;
+- (void)ReadUsers;
+- (void)ReadGroups;
 - (void)ChangeRoot;
 
 @end

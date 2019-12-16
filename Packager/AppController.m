@@ -12,6 +12,8 @@
 #import "SaveAs.h"
 #import "Project.h"
 #import "BrowsePath.h"
+#import "DDFileReader.h"
+//#import "ReadUsers.h"
 #import "FileSystemNode.h"
 #import "FileSystemBrowserCell.h"
 #import "PreviewViewController.h"
@@ -65,6 +67,9 @@
     // Double click support
     self.browser.target = self;
     self.browser.doubleAction = @selector(browserDoubleClick:);
+    
+    // Add right click support
+    // Create new folder
     
 }
 
@@ -339,18 +344,22 @@
     
     [Logger setLogEvent:@"Build PKG", nil];
     
+    [self ReadUsers];
+    
 }
 
 - (void)BuildDMG {
     
     [Logger setLogEvent:@"Build DMG", nil];
     
+    [self ReadGroups];
+    
 }
 
 - (void)Browse {
     
     // Browse for project home
-    BrowsePath * projectHome = [[BrowsePath alloc] init];
+    BrowsePath *projectHome = [[BrowsePath alloc] init];
     stringProjectHome = [projectHome getPath];
     
     // Handle project home browse cancel
@@ -370,6 +379,32 @@
         [Logger setLogEvent:@"Browse project home aborted", nil];
         
     }
+    
+}
+
+- (void)ReadUsers {
+    
+    NSString *stringPasswdPath = @"/etc/passwd";
+    DDFileReader *readerPasswd = [[DDFileReader alloc] initWithFilePath:stringPasswdPath];
+    
+    [readerPasswd enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+        
+        NSLog(@"read line: %@", line);
+        
+    }];
+    
+}
+
+- (void)ReadGroups {
+    
+    NSString *stringGroupPath = @"/etc/group";
+    DDFileReader *readerGroup = [[DDFileReader alloc] initWithFilePath:stringGroupPath];
+    
+    [readerGroup enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+        
+        NSLog(@"read line: %@", line);
+        
+    }];
     
 }
 
