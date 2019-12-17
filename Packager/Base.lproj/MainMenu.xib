@@ -36,7 +36,7 @@
                             <menuItem isSeparatorItem="YES" id="144">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Hide Complex Browser" keyEquivalent="h" id="134">
+                            <menuItem title="Hide Packager" keyEquivalent="h" id="134">
                                 <connections>
                                     <action selector="hide:" target="-1" id="367"/>
                                 </connections>
@@ -317,16 +317,6 @@
                         </buttonCell>
                         <connections>
                             <action selector="buttonBuildPKG:" target="451" id="mN1-hN-7iG"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zJr-Rz-Ypl">
-                        <rect key="frame" x="702" y="556" width="79" height="25"/>
-                        <buttonCell key="cell" type="roundTextured" title="Build DMG" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nmH-p4-K9O">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="buttonBuildDMG:" target="451" id="2wO-21-3mj"/>
                         </connections>
                     </button>
                     <box ambiguous="YES" misplaced="YES" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="KKU-Wj-Jyx">
@@ -706,6 +696,16 @@
                             <outlet property="delegate" destination="451" id="453"/>
                         </connections>
                     </browser>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zJr-Rz-Ypl">
+                        <rect key="frame" x="702" y="556" width="79" height="25"/>
+                        <buttonCell key="cell" type="roundTextured" title="Build DMG" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nmH-p4-K9O">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="buttonBuildDMG:" target="451" id="2wO-21-3mj"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="gxs-Iz-4Fs" firstAttribute="leading" secondItem="fgJ-fD-3qP" secondAttribute="trailing" constant="17" id="8B8-d8-p2B"/>
@@ -723,8 +723,8 @@
                     <constraint firstItem="KKU-Wj-Jyx" firstAttribute="width" secondItem="piw-Aa-Of7" secondAttribute="width" id="hBM-4U-ZnW"/>
                     <constraint firstItem="zJr-Rz-Ypl" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" id="hMv-UN-E8B"/>
                     <constraint firstAttribute="bottom" secondItem="450" secondAttribute="bottom" constant="20" id="idq-cv-G5w"/>
-                    <constraint firstAttribute="trailing" secondItem="450" secondAttribute="trailing" constant="21" id="mte-Bo-JIp"/>
-                    <constraint firstItem="450" firstAttribute="top" secondItem="372" secondAttribute="top" constant="219" id="pL8-Go-4Js"/>
+                    <constraint firstAttribute="trailing" secondItem="450" secondAttribute="trailing" constant="20" id="mte-Bo-JIp"/>
+                    <constraint firstItem="450" firstAttribute="top" secondItem="372" secondAttribute="top" constant="205" id="pL8-Go-4Js"/>
                     <constraint firstItem="r7N-Fj-OUW" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" id="pdD-bv-TMs"/>
                     <constraint firstAttribute="trailing" secondItem="a2b-HT-66k" secondAttribute="trailing" constant="118" id="pl3-Xe-jNi"/>
                     <constraint firstAttribute="trailing" secondItem="gxs-Iz-4Fs" secondAttribute="trailing" constant="20" id="wid-nD-tZE"/>

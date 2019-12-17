@@ -402,7 +402,7 @@
         
         if (unicharFirst == '#') {
             
-            //NSLog(@"Ignore: %@", stringLine);
+            // Ignore line
             
         }
         
@@ -412,9 +412,7 @@
             NSString *stringUser = [arrayLine objectAtIndex:0];
             NSString *stringUID = [arrayLine objectAtIndex:2];
             NSString *stringFormattedUser = [NSString stringWithFormat:@"%@ (%@)", stringUser, stringUID];
-            NSInteger intUID = [stringUID integerValue];
-            
-            //NSLog(@"Good: %@", stringFormattedUser);
+            //NSInteger intUID = [stringUID integerValue];
             
             [self.comboboxOwner addItemWithObjectValue:stringFormattedUser];
             
@@ -443,7 +441,7 @@
         
         if (unicharFirst == '#') {
             
-            //NSLog(@"Ignore: %@", stringLine);
+            // Ignore line
             
         }
         
@@ -453,9 +451,7 @@
             NSString *stringGroup = [arrayLine objectAtIndex:0];
             NSString *stringGID = [arrayLine objectAtIndex:2];
             NSString *stringFormattedGroup = [NSString stringWithFormat:@"%@ (%@)", stringGroup, stringGID];
-            NSInteger intGID = [stringGID integerValue];
-            
-            //NSLog(@"Good: %@", stringFormattedGroup);
+            //NSInteger intGID = [stringGID integerValue];
             
             [self.comboboxGroup addItemWithObjectValue:stringFormattedGroup];
             
@@ -715,6 +711,8 @@
     }
     
     else {
+        
+        // Add alert for project home
         
         [Logger setLogEvent:@"Project home path doesn't exist - no change to root", nil];
         

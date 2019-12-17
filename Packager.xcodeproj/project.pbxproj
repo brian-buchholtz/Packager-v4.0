@@ -11,13 +11,13 @@
 		532C3F881C470C1F00A57614 /* FileSystemBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 532C3F841C470C1F00A57614 /* FileSystemBrowserCell.m */; };
 		532C3F891C470C1F00A57614 /* FileSystemNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 532C3F861C470C1F00A57614 /* FileSystemNode.m */; };
 		532C3F8B1C470C2500A57614 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 532C3F8A1C470C2500A57614 /* main.m */; };
-		532C3F951C470C3800A57614 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532C3F8D1C470C3800A57614 /* HeaderView.xib */; };
 		532C3F961C470C3800A57614 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 532C3F8F1C470C3800A57614 /* InfoPlist.strings */; };
 		532C3F971C470C3800A57614 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532C3F911C470C3800A57614 /* MainMenu.xib */; };
 		532C3F981C470C3800A57614 /* PreviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532C3F931C470C3800A57614 /* PreviewView.xib */; };
 		5373D0AC1C47112E00353813 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5373D0AA1C47112E00353813 /* Credits.rtf */; };
 		53BEC0921C483578006A0122 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BEC0911C483578006A0122 /* PreviewViewController.m */; };
 		D31FABCC23A7D8F800865CF6 /* DDFileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FABCB23A7D8F800865CF6 /* DDFileReader.m */; };
+		D31FABCE23A9699A00865CF6 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D31FABCD23A9699A00865CF6 /* HeaderView.xib */; };
 		D3F6B8C123A00A2F0047A481 /* FilePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F6B8AE23A00A2F0047A481 /* FilePicker.m */; };
 		D3F6B8C223A00A2F0047A481 /* ReadUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F6B8B023A00A2F0047A481 /* ReadUsers.m */; };
 		D3F6B8C323A00A2F0047A481 /* ReadGroups.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F6B8B223A00A2F0047A481 /* ReadGroups.m */; };
@@ -41,7 +41,6 @@
 		532C3F8A1C470C2500A57614 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Packager/main.m; sourceTree = "<group>"; };
 		532C3F8C1C470C2F00A57614 /* Info-Packager.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-Packager.plist"; path = "Packager/Info-Packager.plist"; sourceTree = "<group>"; };
 		532C3F901C470C3800A57614 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = Packager/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		5373D0A71C47110000353813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Packager/Base.lproj/HeaderView.xib; sourceTree = "<group>"; };
 		5373D0A81C47110000353813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Packager/Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		5373D0A91C47110000353813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Packager/Base.lproj/PreviewView.xib; sourceTree = "<group>"; };
 		5373D0AB1C47112E00353813 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = Packager/en.lproj/Credits.rtf; sourceTree = "<group>"; };
@@ -51,6 +50,7 @@
 		8D1107320486CEB800E47090 /* Packager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D31FABCA23A7D80000865CF6 /* DDFileReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDFileReader.h; sourceTree = "<group>"; };
 		D31FABCB23A7D8F800865CF6 /* DDFileReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileReader.m; sourceTree = "<group>"; };
+		D31FABCD23A9699A00865CF6 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		D3F6B8AD23A00A2F0047A481 /* FilePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilePicker.h; sourceTree = "<group>"; };
 		D3F6B8AE23A00A2F0047A481 /* FilePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilePicker.m; sourceTree = "<group>"; };
 		D3F6B8AF23A00A2F0047A481 /* ReadUsers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadUsers.h; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				532C3F911C470C3800A57614 /* MainMenu.xib */,
-				532C3F8D1C470C3800A57614 /* HeaderView.xib */,
+				D31FABCD23A9699A00865CF6 /* HeaderView.xib */,
 				532C3F931C470C3800A57614 /* PreviewView.xib */,
 			);
 			name = "User Interface";
@@ -248,9 +248,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5373D0AC1C47112E00353813 /* Credits.rtf in Resources */,
-				532C3F951C470C3800A57614 /* HeaderView.xib in Resources */,
 				532C3F981C470C3800A57614 /* PreviewView.xib in Resources */,
 				532C3F961C470C3800A57614 /* InfoPlist.strings in Resources */,
+				D31FABCE23A9699A00865CF6 /* HeaderView.xib in Resources */,
 				D3F6B8CC23A00E470047A481 /* Assets.xcassets in Resources */,
 				532C3F971C470C3800A57614 /* MainMenu.xib in Resources */,
 			);
@@ -285,14 +285,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		532C3F8D1C470C3800A57614 /* HeaderView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5373D0A71C47110000353813 /* Base */,
-			);
-			name = HeaderView.xib;
-			sourceTree = "<group>";
-		};
 		532C3F8F1C470C3800A57614 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
