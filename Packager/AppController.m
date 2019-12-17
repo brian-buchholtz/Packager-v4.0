@@ -13,7 +13,6 @@
 #import "Project.h"
 #import "BrowsePath.h"
 #import "DDFileReader.h"
-//#import "ReadUsers.h"
 #import "FileSystemNode.h"
 #import "FileSystemBrowserCell.h"
 #import "PreviewViewController.h"
@@ -295,6 +294,21 @@
         NSString *stringApplicationTitle = [NSString stringWithFormat:@"%@ - %@", stringApplicationName, stringProjectFile];
         [self.windowMain setTitle:stringApplicationTitle];
         
+        // Parse permissions
+        NSString *stringTemp;
+        
+        stringTemp = [stringProjectPermissions substringWithRange:NSMakeRange(0, 1)];
+        NSLog(@"Owner: %@", stringTemp);
+        intPermissionsOwner = [stringTemp integerValue];
+        
+        stringTemp = [stringProjectPermissions substringWithRange:NSMakeRange(1, 1)];
+        NSLog(@"Group: %@", stringTemp);
+        intPermissionsGroup = [stringTemp integerValue];
+        
+        stringTemp = [stringProjectPermissions substringWithRange:NSMakeRange(2, 1)];
+        NSLog(@"Everyone: %@", stringTemp);
+        intPermissionsEveryone = [stringTemp integerValue];
+        
         // Update controls
         [self SetControls];
         
@@ -321,8 +335,8 @@
         // Read control values
         [self GetControls];
         
-        // Default values
-        stringProjectPermissions = @"777";
+        // Concatenate permissions
+        stringProjectPermissions = [NSString stringWithFormat:@"%@%@%@", [@(intPermissionsOwner) stringValue], [@(intPermissionsGroup) stringValue], [@(intPermissionsEveryone) stringValue]];
         
         // Write project file
         [Project writeProject:stringProjectFile ApplicationName:stringApplicationName ApplicationVersion:stringApplicationVersion ProjectName:stringProjectName ProjectVersion:stringProjectVersion ProjectHome:stringProjectHome ProjectOwner:stringProjectOwner ProjectGroup:stringProjectGroup ProjectPermissions:stringProjectPermissions];
@@ -341,6 +355,7 @@
 - (void)BuildPKG {
     
     [Logger setLogEvent:@"Build PKG", nil];
+    [self GetControls];
     
 }
 
@@ -413,6 +428,8 @@
         
     }];
     
+    [Logger setLogEvent:@"Reading users", nil];
+    
 }
 
 - (void)ReadGroups {
@@ -452,6 +469,8 @@
         
     }];
     
+    [Logger setLogEvent:@"Reading groups", nil];
+    
 }
 
 - (void)GetControls {
@@ -465,7 +484,78 @@
     stringProjectOwner = [self.comboboxOwner objectValueOfSelectedItem];
     stringProjectGroup = [self.comboboxGroup objectValueOfSelectedItem];
     
+    // Reset permissions values
+    intPermissionsOwner = 0;
+    intPermissionsGroup = 0;
+    intPermissionsEveryone = 0;
+    
     // Checkboxes
+    if ([self.checkboxOwnerRead state] == NSOnState) {
+        
+        intPermissionsOwner = intPermissionsOwner + 4;
+        
+    }
+    
+    if ([self.checkboxOwnerWrite state] == NSOnState) {
+        
+        intPermissionsOwner = intPermissionsOwner + 2;
+        
+    }
+    
+    if ([self.checkboxOwnerExecute state] == NSOnState) {
+        
+        intPermissionsOwner = intPermissionsOwner + 1;
+        
+    }
+    
+    if ([self.checkboxGroupRead state] == NSOnState) {
+        
+        intPermissionsGroup = intPermissionsGroup + 4;
+        
+    }
+    
+    if ([self.checkboxGroupWrite state] == NSOnState) {
+        
+        intPermissionsGroup = intPermissionsGroup + 2;
+        
+    }
+    
+    if ([self.checkboxGroupExecute state] == NSOnState) {
+        
+        intPermissionsGroup = intPermissionsGroup + 1;
+        
+    }
+    
+    if ([self.checkboxEveryoneRead state] == NSOnState) {
+        
+        intPermissionsEveryone = intPermissionsEveryone + 4;
+        
+    }
+    
+    if ([self.checkboxEveryoneWrite state] == NSOnState) {
+        
+        intPermissionsEveryone = intPermissionsEveryone + 2;
+        
+    }
+    
+    if ([self.checkboxEveryoneExecute state] == NSOnState) {
+        
+        intPermissionsEveryone = intPermissionsEveryone + 1;
+        
+    }
+    
+    NSString *stringTemp;
+    
+    stringTemp = [@(intPermissionsOwner) stringValue];
+    NSLog(@"Owner: %@", stringTemp);
+    
+    stringTemp = [@(intPermissionsGroup) stringValue];
+    NSLog(@"Group: %@", stringTemp);
+    
+    stringTemp = [@(intPermissionsEveryone) stringValue];
+    NSLog(@"Everyone: %@", stringTemp);
+    
+    [Logger setLogEvent:@"Getting control values", nil];
     
 }
 
@@ -480,7 +570,133 @@
     [self.comboboxOwner selectItemWithObjectValue:stringProjectOwner];
     [self.comboboxGroup selectItemWithObjectValue:stringProjectGroup];
     
-    // Checkboxes
+    // Owner checkboxes
+    if (intPermissionsOwner >= 4) {
+        
+        [self.checkboxOwnerRead setState:NSOnState];
+        intPermissionsOwner = intPermissionsOwner - 4;
+        
+    }
+    
+    else {
+        
+        [self.checkboxOwnerRead setState:NSOffState];
+        
+    }
+    
+    if (intPermissionsOwner >= 2) {
+        
+        [self.checkboxOwnerWrite setState:NSOnState];
+        intPermissionsOwner = intPermissionsOwner - 2;
+        
+    }
+    
+    else {
+        
+        [self.checkboxOwnerWrite setState:NSOffState];
+        
+    }
+    
+    if (intPermissionsOwner >= 1) {
+        
+        [self.checkboxOwnerExecute setState:NSOnState];
+        //intPermissionsOwner = intPermissionsOwner - 1;
+        
+    }
+    
+    else {
+        
+        [self.checkboxOwnerExecute setState:NSOffState];
+        
+    }
+    
+    // Group checkboxes
+    if (intPermissionsGroup >= 4) {
+        
+        [self.checkboxGroupRead setState:NSOnState];
+        intPermissionsGroup = intPermissionsGroup - 4;
+        
+    }
+    
+    else {
+        
+        [self.checkboxGroupRead setState:NSOffState];
+        
+    }
+    
+    if (intPermissionsGroup >= 2) {
+        
+        [self.checkboxGroupWrite setState:NSOnState];
+        intPermissionsGroup = intPermissionsGroup - 2;
+        
+    }
+    
+    else {
+        
+        [self.checkboxGroupWrite setState:NSOffState];
+        
+    }
+    
+    if (intPermissionsGroup >= 1) {
+        
+        [self.checkboxGroupExecute setState:NSOnState];
+        //intPermissionsGroup = intPermissionsGroup - 1;
+        
+    }
+    
+    else {
+        
+        [self.checkboxGroupExecute setState:NSOffState];
+        
+    }
+
+    // Everyone checkboxes
+    if (intPermissionsEveryone >= 4) {
+        
+        [self.checkboxEveryoneRead setState:NSOnState];
+        intPermissionsEveryone = intPermissionsEveryone - 4;
+        
+    }
+    
+    else {
+        
+        [self.checkboxEveryoneRead setState:NSOffState];
+        
+    }
+    
+    if (intPermissionsEveryone >= 2) {
+        
+        [self.checkboxEveryoneWrite setState:NSOnState];
+        intPermissionsEveryone = intPermissionsEveryone - 2;
+        
+    }
+    
+    else {
+        
+        [self.checkboxEveryoneWrite setState:NSOffState];
+        
+    }
+    
+    if (intPermissionsEveryone >= 1) {
+        
+        [self.checkboxEveryoneExecute setState:NSOnState];
+        //intPermissionsEveryone = intPermissionsEveryone - 1;
+        
+    }
+    
+    else {
+        
+        [self.checkboxEveryoneExecute setState:NSOffState];
+        
+    }
+    
+    [Logger setLogEvent:@"Setting control values", nil];
+    
+}
+
+- (void)ValidateControls {
+    
+    [Logger setLogEvent:@"Validating control values", nil];
     
 }
 

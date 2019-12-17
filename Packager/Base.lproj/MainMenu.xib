@@ -448,6 +448,20 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
+                                <comboBox verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IG5-FH-hpM">
+                                    <rect key="frame" x="75" y="71" width="200" height="26"/>
+                                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="CYB-Dh-IKu">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="371" id="MJl-OB-2U0"/>
+                                        </connections>
+                                    </comboBoxCell>
+                                    <connections>
+                                        <action selector="comboboxOwner:" target="451" id="WNJ-mt-o1p"/>
+                                    </connections>
+                                </comboBox>
                                 <comboBox verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SOu-cP-WgA">
                                     <rect key="frame" x="75" y="39" width="200" height="26"/>
                                     <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="ar7-qe-30O">
@@ -455,6 +469,9 @@
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </comboBoxCell>
+                                    <connections>
+                                        <action selector="comboboxGroup:" target="451" id="fKk-sV-IWT"/>
+                                    </connections>
                                 </comboBox>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aNg-El-P9A">
                                     <rect key="frame" x="301" y="13" width="17" height="17"/>
@@ -470,6 +487,9 @@
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="checkboxGroupRead:" target="451" id="4q5-bP-gQt"/>
+                                    </connections>
                                 </button>
                                 <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jya-Ip-Zgp">
                                     <rect key="frame" x="318" y="12" width="22" height="18"/>
@@ -477,6 +497,9 @@
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="checkboxEveryoneRead:" target="451" id="w6r-rW-z2j"/>
+                                    </connections>
                                 </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s6l-fc-GK1">
                                     <rect key="frame" x="355" y="77" width="20" height="17"/>
@@ -508,6 +531,9 @@
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="checkboxOwnerWrite:" target="451" id="Trv-Lz-8wN"/>
+                                    </connections>
                                 </button>
                                 <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dgl-RT-7fU">
                                     <rect key="frame" x="375" y="44" width="22" height="18"/>
@@ -515,13 +541,9 @@
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
-                                </button>
-                                <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hpq-BF-9Rq">
-                                    <rect key="frame" x="375" y="12" width="22" height="18"/>
-                                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="zi6-EP-ryp">
-                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
+                                    <connections>
+                                        <action selector="checkboxGroupWrite:" target="451" id="5GG-Nl-FXx"/>
+                                    </connections>
                                 </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IDA-ky-uLm">
                                     <rect key="frame" x="415" y="77" width="17" height="17"/>
@@ -553,6 +575,9 @@
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="checkboxOwnerExecute:" target="451" id="UBn-Kj-29v"/>
+                                    </connections>
                                 </button>
                                 <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="njw-k4-MYz">
                                     <rect key="frame" x="432" y="12" width="22" height="18"/>
@@ -560,6 +585,9 @@
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="checkboxEveryoneExecute:" target="451" id="ebP-Zt-keJ"/>
+                                    </connections>
                                 </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yj0-tw-CXb">
                                     <rect key="frame" x="301" y="77" width="17" height="17"/>
@@ -577,34 +605,36 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bbD-P6-3xT">
-                                    <rect key="frame" x="318" y="76" width="22" height="18"/>
-                                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" state="on" userInterfaceLayoutDirection="rightToLeft" inset="2" id="9bX-pp-UI9">
-                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                </button>
                                 <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Rz-b8-gch">
                                     <rect key="frame" x="432" y="44" width="22" height="18"/>
                                     <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="GjF-ts-lAt">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
-                                </button>
-                                <comboBox verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IG5-FH-hpM">
-                                    <rect key="frame" x="75" y="71" width="200" height="26"/>
-                                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="CYB-Dh-IKu">
-                                        <font key="font" metaFont="system"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        <connections>
-                                            <outlet property="dataSource" destination="371" id="MJl-OB-2U0"/>
-                                        </connections>
-                                    </comboBoxCell>
                                     <connections>
-                                        <action selector="comboboxOwner:" target="451" id="WNJ-mt-o1p"/>
+                                        <action selector="checkboxGroupExecute:" target="451" id="ICs-r3-iH3"/>
                                     </connections>
-                                </comboBox>
+                                </button>
+                                <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bbD-P6-3xT">
+                                    <rect key="frame" x="318" y="76" width="22" height="18"/>
+                                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" state="on" userInterfaceLayoutDirection="rightToLeft" inset="2" id="9bX-pp-UI9">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="checkboxOwnerRead:" target="451" id="PCZ-hv-02c"/>
+                                    </connections>
+                                </button>
+                                <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hpq-BF-9Rq">
+                                    <rect key="frame" x="375" y="12" width="22" height="18"/>
+                                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="zi6-EP-ryp">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="checkboxEveryoneWrite:" target="451" id="4r6-90-i4d"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="yj0-tw-CXb" firstAttribute="top" secondItem="piw-Aa-Of7" secondAttribute="top" constant="8" id="0Iy-Ls-otw"/>
@@ -706,6 +736,15 @@
         <customObject id="451" customClass="AppController">
             <connections>
                 <outlet property="browser" destination="450" id="JdM-II-zW5"/>
+                <outlet property="checkboxEveryoneExecute" destination="njw-k4-MYz" id="Ztp-RZ-Srr"/>
+                <outlet property="checkboxEveryoneRead" destination="Jya-Ip-Zgp" id="APh-0b-WDJ"/>
+                <outlet property="checkboxEveryoneWrite" destination="hpq-BF-9Rq" id="WQ0-e5-Va1"/>
+                <outlet property="checkboxGroupExecute" destination="8Rz-b8-gch" id="UnH-ZD-6dg"/>
+                <outlet property="checkboxGroupRead" destination="c2O-yv-be1" id="KZO-8E-4dd"/>
+                <outlet property="checkboxGroupWrite" destination="dgl-RT-7fU" id="Sld-La-W9a"/>
+                <outlet property="checkboxOwnerExecute" destination="YWZ-zb-bbc" id="lqe-eB-rTc"/>
+                <outlet property="checkboxOwnerRead" destination="bbD-P6-3xT" id="sGN-fV-JZ7"/>
+                <outlet property="checkboxOwnerWrite" destination="5iz-QR-cPs" id="jcw-qa-vts"/>
                 <outlet property="comboboxGroup" destination="SOu-cP-WgA" id="N3j-qq-gb7"/>
                 <outlet property="comboboxOwner" destination="IG5-FH-hpM" id="mku-FF-aQ7"/>
                 <outlet property="comboboxcellGroup" destination="ar7-qe-30O" id="KQE-tr-EHU"/>
