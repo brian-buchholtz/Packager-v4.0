@@ -3,7 +3,9 @@
 //  Packager
 //
 //  Created by Brian Buchholtz on 11/12/19.
+//
 //  Copyright © 2019 VMware. All rights reserved.
+//
 //
 
 #ifndef Project_h
@@ -15,7 +17,7 @@
     
 }
 
-+ (void)writeProject:(NSString *)stringProjectFile ApplicationName:(NSString *)stringApplicationName ApplicationVersion:(NSString *)stringApplicationVersion ProjectName:(NSString *)stringProjectName ProjectVersion:(NSString *)stringProjectVersion ProjectHome:(NSString *)stringProjectHome ProjectOwner:(NSString *)stringProjectOwner ProjectGroup:(NSString *)stringProjectGroup ProjectPermissions:(NSString *)stringProjectPermissions;
++ (void)writeProject:(NSString *)stringProjectFile ApplicationName:(NSString *)stringApplicationName ApplicationVersion:(NSString *)stringApplicationVersion ProjectName:(NSString *)stringProjectName ProjectVersion:(NSString *)stringProjectVersion ProjectIdentifier:(NSString *)stringProjectIdentifier ProjectRoot:(NSString *)stringProjectRoot ProjectSource:(NSString *)stringProjectSource ProjectTarget:(NSString *)stringProjectTarget ProjectSign:(NSString *)stringProjectSign ProjectIsSigned:(NSString *)stringProjectIsSigned ProjectOwner:(NSString *)stringProjectOwner ProjectGroup:(NSString *)stringProjectGroup ProjectPermissions:(NSString *)stringProjectPermissions;
 - (NSDictionary *)readProject:(NSString *)stringProjectFile;
 
 @end

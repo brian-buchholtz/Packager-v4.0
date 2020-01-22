@@ -3,7 +3,9 @@
 //  Packager
 //
 //  Created by Brian Buchholtz on 11/8/19.
+//
 //  Copyright © 2019 VMware. All rights reserved.
+//
 //
 
 #import <Foundation/Foundation.h>
@@ -15,10 +17,10 @@
     
 }
 
-- (NSString*)getPath {
+- (NSString *)getPath {
     
     // Return filename
-    NSString *stringProjectHome;
+    NSString *stringBrowsePath;
     
     // Create a File Open Dialog class
     NSOpenPanel *openDialog = [NSOpenPanel openPanel];
@@ -31,25 +33,25 @@
     // Display the dialog box; If OK is pressed, process the files
     if ([openDialog runModal] == NSModalResponseOK) {
         
-        NSURL *urlProjectHome = openDialog.URL;
-        stringProjectHome = urlProjectHome.path;
+        NSURL *urlBrowsePath = openDialog.URL;
+        stringBrowsePath = urlBrowsePath.path;
 
         // Write to logger
-        [Logger setLogEvent:@"Setting project home: ", stringProjectHome, nil];
+        [Logger setLogEvent:@"Browse path: ", stringBrowsePath, nil];
         
     }
     
     else {
         
         // Handle file picker cancel
-        stringProjectHome = nil;
+        stringBrowsePath = nil;
         
-        [Logger setLogEvent:@"Setting project home: Cancelled - User Initiated", nil];
+        [Logger setLogEvent:@"Browse path: Cancelled - User initiated", nil];
         
     }
     
     // Return picked file
-    return stringProjectHome;
+    return stringBrowsePath;
     
 }
 

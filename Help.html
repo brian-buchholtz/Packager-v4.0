@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>VMware Packager - Help</title>
+<style>
+    html {font-family: sans-serif; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #000000;}
+    body {background-color: #F7F7F7;}
+    h1 {font-size: 150%;}
+    h2 {font-size: 125%; padding-top: 32pt;}
+    ul {list-style-type: disk;}
+    table, th, td {border: 0; border-spacing:0; padding: 0; text-align: left;}
+    table {width: 100%; padding-top: 8pt;}
+    td, li {padding-top: 8pt;}
+    td.left {word-break: keep-all; white-space: nowrap; font-weight: bold; vertical-align: text-top;}
+    td.middle div.middle {width: 16pt;}
+    td.right {width: 100%;}
+</style>
+</head>
+<body>
+
+<h1>VMware Packager Help</h1>
+<h2>Overview</h2>
+<p>VMware Packager is a tool to help simplify the building of PKGs and DMGs. Packager supports the following functionality:</p>
+<ul>
+    <li>Package signing</li>
+    <li>File ownership and permissions</li>
+    <li>Autogeneration of Munki plist</li>
+</ul>
+<h2>Projects</h2>
+<p>Projects are files containing metadata that describe how packages are built. They store essential information about the package itself, ownership, permissions and signing settings.</p>
+<table>
+    <tr>
+        <td class="left">New Project</td>
+        <td class="middle"><div class="middle"></div></td>
+        <td class="right">Creates a new empty project.</td>
+    </tr>
+    <tr>
+        <td class="left">Open Project</td>
+        <td class="middle"><div class="middle"></div></td>
+        <td class="wide">Opens an existing project.</td>
+    </tr>
+    <tr>
+        <td class="left">Save Project</td>
+        <td class="middle"><div class="middle"></div></td>
+        <td class="wide">Saves current project. It is possible to build a package, without saving project.</td>
+    </tr>
+</table>
+<h2>Project Settings</h2>
+<p>Project settings are defined on the main Packager user interface.
+<table>
+    <tr>
+        <td class="left">Name</td>
+        <td class="middle"><div class="middle"></div></td>
+        <td class="right">This represents the app name.<br /><i>Example:</i> "Sample App"</td>
+    </tr>
+    <tr>
+        <td class="left">Version</td>
+        <td class="middle"><div class="middle"></div></td>
+        <td class="right">This represents the app version. VMware Workspace ONE UEM uses this value to track versioning.<br /><i>Example:</i> "1.0"</td>
+    </tr>
+    <tr>
+        <td class="left">Identifer</td>
+        <td class="middle"><div class="middle"></div></td>
+        <td class="right">This represents the unique app identifier or bundle ID.<br /><i>Example:</i> "com.company.Sample-App"</td>
+    </tr>
+    <tr>
+        <td class="left">Root</td>
+        <td class="middle"><div class="middle"></div></td>
+        <td class="wide">This represents the starting point in the filesystem where the package is installed.<br /><i>Example:</i> "/"</td>
+    </tr>
+    <tr>
+        <td class="left">Source</td>
+        <td class="middle"><div class="middle"></div></td>
+        <td class="wide">This represents the payload folder of the package.</td>
+    </tr>
+    <tr>
+        <td class="left">Owner</td>
+        <td class="middle"><div class="middle"></div></td>
+        <td class="right">This represents the owner of the installed package. Permissions can be set for the owner. For DMG creation, this is automatically handled. For PKG creation, the post installation script will have to be modified.</td>
+    </tr>
+    <tr>
+        <td class="left">Group</td>
+        <td class="middle"><div class="middle"></div></td>
+        <td class="right">This represents the group of the installed package. Permissions can be set for the group. For DMG creation, this is automatically handled. For PKG creation, the post installation script will have to be modified.</td>
+    </tr>
+    <tr>
+        <td class="left">Everyone</td>
+        <td class="middle"><div class="middle"></div></td>
+        <td class="wide">This represents the permissions for everyone. For DMG creation, this is automatically handled. For PKG creation, the post installation script will have to be modified.</td>
+    </tr>
+    <tr>
+        <td class="left">Sign</td>
+        <td class="middle"><div class="middle"></div></td>
+        <td class="wide">This represents which certificate will be used for package signing. This option has to be checked, if you want the package to be signed.</td>
+    </tr>
+    <tr>
+        <td class="left">Target</td>
+        <td class="middle"><div class="middle"></div></td>
+        <td class="wide">This represents the location where the package and plist will be built.</td>
+    </tr>
+</table>
+
+</body>
+</html>

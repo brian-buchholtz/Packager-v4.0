@@ -13,13 +13,13 @@
 
 @interface NSData (DDAdditions)
 
-- (NSRange) rangeOfData_dd:(NSData *)dataToFind;
+- (NSRange)rangeOfData_dd:(NSData *)dataToFind;
 
 @end
 
 @implementation NSData (DDAdditions)
 
-- (NSRange) rangeOfData_dd:(NSData *)dataToFind {
+- (NSRange)rangeOfData_dd:(NSData *)dataToFind {
     
     const void *bytes = [self bytes];
     NSUInteger length = [self length];
@@ -69,7 +69,7 @@
 @implementation DDFileReader
 @synthesize lineDelimiter, chunkSize;
 
-- (id) initWithFilePath:(NSString *)aPath {
+- (id)initWithFilePath:(NSString *)aPath {
     
     if (self = [super init]) {
         
@@ -98,7 +98,7 @@
     
 }
 
-- (void) dealloc {
+- (void)dealloc {
     
     [fileHandle closeFile];
     //[fileHandle release], fileHandle = nil;
@@ -112,8 +112,13 @@
     
 }
 
-- (NSString *) readLine {
-    if (currentOffset >= totalFileLength) { return nil; }
+- (NSString *)readLine {
+    
+    if (currentOffset >= totalFileLength) {
+        
+        return nil;
+    
+    }
     
     NSData *newLineData = [lineDelimiter dataUsingEncoding:NSUTF8StringEncoding];
     [fileHandle seekToFileOffset:currentOffset];
@@ -155,14 +160,14 @@
     
 }
 
-- (NSString *) readTrimmedLine {
+- (NSString *)readTrimmedLine {
     
     return [[self readLine] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
 }
 
 #if NS_BLOCKS_AVAILABLE
-- (void) enumerateLinesUsingBlock:(void(^)(NSString*, BOOL*))block {
+- (void)enumerateLinesUsingBlock:(void(^)(NSString*, BOOL*))block {
     
     NSString *line = nil;
     BOOL stop = NO;
@@ -174,6 +179,7 @@
     }
     
 }
+
 #endif
 
 @end

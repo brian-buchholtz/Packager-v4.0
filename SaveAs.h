@@ -3,7 +3,9 @@
 //  Packager
 //
 //  Created by Brian Buchholtz on 11/15/19.
+//
 //  Copyright © 2019 VMware. All rights reserved.
+//
 //
 
 #ifndef SaveAs_h
@@ -15,7 +17,7 @@
     
 }
 
-- (NSString*)newFile;
+- (NSString *)newFile;
 
 @end
 

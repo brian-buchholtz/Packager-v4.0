@@ -3,7 +3,9 @@
 //  Packager
 //
 //  Created by Brian Buchholtz on 11/12/19.
+//
 //  Copyright © 2019 VMware. All rights reserved.
+//
 //
 
 #import <Foundation/Foundation.h>
@@ -14,29 +16,34 @@
     
 }
 
-+ (void)writeProject:(NSString *)stringProjectFile ApplicationName:(NSString *)stringApplicationName ApplicationVersion:(NSString *)stringApplicationVersion ProjectName:(NSString *)stringProjectName ProjectVersion:(NSString *)stringProjectVersion ProjectHome:(NSString *)stringProjectHome ProjectOwner:(NSString *)stringProjectOwner ProjectGroup:(NSString *)stringProjectGroup ProjectPermissions:(NSString *)stringProjectPermissions {
++ (void)writeProject:(NSString *)stringProjectFile ApplicationName:(NSString *)stringApplicationName ApplicationVersion:(NSString *)stringApplicationVersion ProjectName:(NSString *)stringProjectName ProjectVersion:(NSString *)stringProjectVersion ProjectIdentifier:(NSString *)stringProjectIdentifier ProjectRoot:(NSString *)stringProjectRoot ProjectSource:(NSString *)stringProjectSource ProjectTarget:(NSString *)stringProjectTarget ProjectSign:(NSString *)stringProjectSign ProjectIsSigned:(NSString *)stringProjectIsSigned ProjectOwner:(NSString *)stringProjectOwner ProjectGroup:(NSString *)stringProjectGroup ProjectPermissions:(NSString *)stringProjectPermissions {
     
     // Settings root
-    NSXMLElement *root = (NSXMLElement *)[NSXMLNode elementWithName:@"Settings"];
+    NSXMLElement *elementSettings = (NSXMLElement *)[NSXMLNode elementWithName:@"Settings"];
     
     // Application metadata
-    NSXMLElement *application = [[NSXMLElement alloc] initWithName:@"Application"];
-    [root addChild:application];
-    [application addAttribute:[NSXMLNode attributeWithName:@"Name" stringValue:stringApplicationName]];
-    [application addAttribute:[NSXMLNode attributeWithName:@"Version" stringValue:stringApplicationVersion]];
+    NSXMLElement *elementApplication = [[NSXMLElement alloc] initWithName:@"Application"];
+    [elementSettings addChild:elementApplication];
+    [elementApplication addAttribute:[NSXMLNode attributeWithName:@"Name" stringValue:stringApplicationName]];
+    [elementApplication addAttribute:[NSXMLNode attributeWithName:@"Version" stringValue:stringApplicationVersion]];
     
     // Project metadata
-    NSXMLElement *project = [[NSXMLElement alloc] initWithName:@"Project"];
-    [root addChild:project];
-    [project addAttribute:[NSXMLNode attributeWithName:@"Name" stringValue:stringProjectName]];
-    [project addAttribute:[NSXMLNode attributeWithName:@"Version" stringValue:stringProjectVersion]];
-    [project addAttribute:[NSXMLNode attributeWithName:@"Home" stringValue:stringProjectHome]];
-    [project addAttribute:[NSXMLNode attributeWithName:@"Owner" stringValue:stringProjectOwner]];
-    [project addAttribute:[NSXMLNode attributeWithName:@"Group" stringValue:stringProjectGroup]];
-    [project addAttribute:[NSXMLNode attributeWithName:@"Permissions" stringValue:stringProjectPermissions]];
+    NSXMLElement *elementProject = [[NSXMLElement alloc] initWithName:@"Project"];
+    [elementSettings addChild:elementProject];
+    [elementProject addAttribute:[NSXMLNode attributeWithName:@"Name" stringValue:stringProjectName]];
+    [elementProject addAttribute:[NSXMLNode attributeWithName:@"Version" stringValue:stringProjectVersion]];
+    [elementProject addAttribute:[NSXMLNode attributeWithName:@"Identifier" stringValue:stringProjectIdentifier]];
+    [elementProject addAttribute:[NSXMLNode attributeWithName:@"Root" stringValue:stringProjectRoot]];
+    [elementProject addAttribute:[NSXMLNode attributeWithName:@"Source" stringValue:stringProjectSource]];
+    [elementProject addAttribute:[NSXMLNode attributeWithName:@"Target" stringValue:stringProjectTarget]];
+    [elementProject addAttribute:[NSXMLNode attributeWithName:@"Sign" stringValue:stringProjectSign]];
+    [elementProject addAttribute:[NSXMLNode attributeWithName:@"IsSigned" stringValue:stringProjectIsSigned]];
+    [elementProject addAttribute:[NSXMLNode attributeWithName:@"Owner" stringValue:stringProjectOwner]];
+    [elementProject addAttribute:[NSXMLNode attributeWithName:@"Group" stringValue:stringProjectGroup]];
+    [elementProject addAttribute:[NSXMLNode attributeWithName:@"Permissions" stringValue:stringProjectPermissions]];
 
     // Document properties
-    NSXMLDocument *xmlProject = [NSXMLDocument documentWithRootElement:root];
+    NSXMLDocument *xmlProject = [NSXMLDocument documentWithRootElement:elementSettings];
     [xmlProject setVersion:@"1.0"];
     [xmlProject setCharacterEncoding:@"UTF-8"];
     
@@ -44,8 +51,8 @@
     NSLog(@"XML Document\n%@", xmlProject);
     
     // Write project file
-    NSData *xmlData = [xmlProject XMLDataWithOptions:NSXMLNodePrettyPrint];
-    [xmlData writeToFile:stringProjectFile atomically:YES];
+    NSData *dataXml = [xmlProject XMLDataWithOptions:NSXMLNodePrettyPrint];
+    [dataXml writeToFile:stringProjectFile atomically:YES];
     
     [Logger setLogEvent:@"Saving project file: ", stringProjectFile, nil];
     
@@ -81,9 +88,29 @@
     NSArray *arrayProjectVersion = [xmlProject nodesForXPath:@"./Settings/Project/@Version" error:&error];
     NSXMLElement *elementProjectVersion = [arrayProjectVersion objectAtIndex:0];
     
-    // Project Home
-    NSArray *arrayProjectHome = [xmlProject nodesForXPath:@"./Settings/Project/@Home" error:&error];
-    NSXMLElement *elementProjectHome = [arrayProjectHome objectAtIndex:0];
+    // Project Identifier
+    NSArray *arrayProjectIdentifier = [xmlProject nodesForXPath:@"./Settings/Project/@Identifier" error:&error];
+    NSXMLElement *elementProjectIdentifier = [arrayProjectIdentifier objectAtIndex:0];
+    
+    // Project Root
+    NSArray *arrayProjectRoot = [xmlProject nodesForXPath:@"./Settings/Project/@Root" error:&error];
+    NSXMLElement *elementProjectRoot = [arrayProjectRoot objectAtIndex:0];
+    
+    // Project Source
+    NSArray *arrayProjectSource = [xmlProject nodesForXPath:@"./Settings/Project/@Source" error:&error];
+    NSXMLElement *elementProjectSource = [arrayProjectSource objectAtIndex:0];
+    
+    // Project Target
+    NSArray *arrayProjectTarget = [xmlProject nodesForXPath:@"./Settings/Project/@Target" error:&error];
+    NSXMLElement *elementProjectTarget = [arrayProjectTarget objectAtIndex:0];
+    
+    // Project Sign
+    NSArray *arrayProjectSign = [xmlProject nodesForXPath:@"./Settings/Project/@Sign" error:&error];
+    NSXMLElement *elementProjectSign = [arrayProjectSign objectAtIndex:0];
+    
+    // Project Is Signed
+    NSArray *arrayProjectIsSigned = [xmlProject nodesForXPath:@"./Settings/Project/@IsSigned" error:&error];
+    NSXMLElement *elementProjectIsSigned = [arrayProjectIsSigned objectAtIndex:0];
     
     // Project Owner
     NSArray *arrayProjectOwner = [xmlProject nodesForXPath:@"./Settings/Project/@Owner" error:&error];
@@ -104,7 +131,12 @@
              @"ApplicationVersion":elementApplicationVersion.stringValue,
              @"ProjectName":elementProjectName.stringValue,
              @"ProjectVersion":elementProjectVersion.stringValue,
-             @"ProjectHome":elementProjectHome.stringValue,
+             @"ProjectIdentifier":elementProjectIdentifier.stringValue,
+             @"ProjectRoot":elementProjectRoot.stringValue,
+             @"ProjectSource":elementProjectSource.stringValue,
+             @"ProjectTarget":elementProjectTarget.stringValue,
+             @"ProjectSign":elementProjectSign.stringValue,
+             @"ProjectIsSigned":elementProjectIsSigned.stringValue,
              @"ProjectOwner":elementProjectOwner.stringValue,
              @"ProjectGroup":elementProjectGroup.stringValue,
              @"ProjectPermissions":elementProjectPermissions.stringValue};

@@ -3,19 +3,28 @@
 //  Packager
 //
 //  Created by Brian Buchholtz on 11/7/19.
+//
 //  Copyright © 2019 VMware. All rights reserved.
+//
 //
 
 #import "AppController.h"
-#import "Logger.h"
 #import "FilePicker.h"
 #import "SaveAs.h"
 #import "Project.h"
 #import "BrowsePath.h"
-#import "DDFileReader.h"
+#import "UserGroup.h"
+#import "Identities.h"
 #import "FileSystemNode.h"
 #import "FileSystemBrowserCell.h"
 #import "PreviewViewController.h"
+#import "BuildPackage.h"
+#import "SignPackage.h"
+#import "PayloadSize.h"
+#import "FileSize.h"
+#import "ShaSum.h"
+#import "GeneratePlist.h"
+#import "Logger.h"
 
 @interface AppController ()
 
@@ -30,7 +39,7 @@
     
     // Set application metadata
     stringApplicationName = @"VMware Packager";
-    stringApplicationVersion = @"2.10";
+    stringApplicationVersion = @"2.6";
     
     // Settings path and file
     NSURL *urlSettingsPath = [[[NSBundle mainBundle] bundleURL] URLByDeletingLastPathComponent];
@@ -39,11 +48,12 @@
     
     // Update application window title
     NSString *stringApplicationTitle = [NSString stringWithFormat:@"%@ - %@", stringApplicationName, @"(Empty Project)"];
-    [self.windowMain setTitle:stringApplicationTitle];
+    [self.windowMainOutlet setTitle:stringApplicationTitle];
     
     // Load comboboxes
-    [self ReadUsers];
-    [self ReadGroups];
+    [self readUsers];
+    [self readGroups];
+    [self readIdentities];
     
 }
 
@@ -57,181 +67,215 @@
 - (void)awakeFromNib {
     
     // use a custom cell class for each browser item
-    [self.browser setCellClass:[FileSystemBrowserCell class]];
+    [self.browserSourceOutlet setCellClass:[FileSystemBrowserCell class]];
     
     // Drag and drop support
-    [self.browser registerForDraggedTypes:@[NSFilenamesPboardType]];
-    [self.browser setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
-    [self.browser setDraggingSourceOperationMask:NSDragOperationEvery forLocal:NO];
+    [self.browserSourceOutlet registerForDraggedTypes:@[NSFilenamesPboardType]];
+    [self.browserSourceOutlet setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
+    [self.browserSourceOutlet setDraggingSourceOperationMask:NSDragOperationEvery forLocal:NO];
     
     // if you want to change the background color of NSBrowser use this:
     //self.browser.backgroundColor = [NSColor controlBackgroundColor];
     
     // Double click support
-    self.browser.target = self;
-    self.browser.doubleAction = @selector(browserDoubleClick:);
+    self.browserSourceOutlet.target = self;
+    self.browserSourceOutlet.doubleAction = @selector(browserDoubleClick:);
     
     // Add right click support
     // Create new folder
     
 }
 
-- (id)rootItemForBrowser:(NSBrowser *)browser {
+- (id)rootItemForBrowser:(NSBrowser *)browserSourceOutlet {
     
-    if (self.rootNode == nil) {
+    if (self.rootNodeSource == nil) {
         
-        _rootNode = [[FileSystemNode alloc] initWithURL:[NSURL fileURLWithPath:NSOpenStepRootDirectory()]];
+        _rootNodeSource = [[FileSystemNode alloc] initWithURL:[NSURL fileURLWithPath:NSOpenStepRootDirectory()]];
         
     }
     
-    return self.rootNode;
+    return self.rootNodeSource;
     
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Menu
 
-- (IBAction)menuNewProject:(id)sender {
+- (IBAction)menuNewProjectAction:(id)sender {
     
     // New project
-    [self NewProject];
+    [self newProject];
     
 }
 
-- (IBAction)menuOpenProject:(id)sender {
+- (IBAction)menuOpenProjectAction:(id)sender {
     
     // Open project
-    [self OpenProject];
+    [self openProject];
     
 }
 
-- (IBAction)menuSaveProject:(id)sender {
+- (IBAction)menuSaveProjectAction:(id)sender {
     
     // Save project
-    [self SaveProject];
+    [self saveProject];
     
 }
 
-- (IBAction)menuBuildPKG:(id)sender {
+- (IBAction)menuBuildPKGAction:(id)sender {
     
     // Build PKG
-    [self BuildPKG];
+    [self buildPKG];
     
 }
 
-- (IBAction)menuBuildDMG:(id)sender {
+- (IBAction)menuBuildDMGAction:(id)sender {
     
     // Build DMG
-    [self BuildDMG];
+    [self buildDMG];
+    
+}
+
+- (IBAction)menuShowHelp:(id)sender {
+    
+    // Display help page
+    NSURL * urlHelpFile = [[NSBundle mainBundle] URLForResource:@"Help" withExtension:@"html"];
+    [[NSWorkspace sharedWorkspace] openURL:urlHelpFile];
     
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Controls
 
-- (IBAction)buttonNewProject:(NSButton *)sender {
+- (IBAction)buttonNewProjectAction:(NSButton *)sender {
     
     // New project
-    [self NewProject];
+    [self newProject];
     
 }
 
-- (IBAction)buttonOpenProject:(NSButton *)sender {
+- (IBAction)buttonOpenProjectAction:(NSButton *)sender {
     
     // Open project
-    [self OpenProject];
+    [self openProject];
     
 }
 
-- (IBAction)buttonSaveProject:(NSButton *)sender {
+- (IBAction)buttonSaveProjectAction:(NSButton *)sender {
     
     // Save project
-    [self SaveProject];
+    [self saveProject];
     
 }
 
-- (IBAction)buttonBuildPKG:(NSButton *)sender {
+- (IBAction)buttonBuildPKGAction:(NSButton *)sender {
     
     // Build PKG
-    [self BuildPKG];
+    [self buildPKG];
     
 }
 
-- (IBAction)buttonBuildDMG:(NSButton *)sender {
+- (IBAction)buttonBuildDMGAction:(NSButton *)sender {
     
     // Build DMG
-    [self BuildDMG];
+    [self buildDMG];
     
 }
 
-- (IBAction)buttonBrowse:(NSButton *)sender {
+- (IBAction)buttonBrowseRootAction:(NSButton *)sender {
     
-    // Browse project home
-    [self Browse];
+    // Browse project root
+    [self browseRoot];
     
 }
 
-- (IBAction)comboboxOwner:(NSComboBox *)sender {
+- (IBAction)buttonBrowseSourceAction:(NSButton *)sender {
+    
+    // Browse project source
+    [self browseSource];
+    
+}
+
+- (IBAction)buttonBrowseTargetAction:(NSButton *)sender {
+    
+    // Browse project target
+    [self browseTarget];
+    
+}
+
+- (IBAction)comboboxOwnerAction:(NSComboBox *)sender {
     
     // Not yet implemented
     
 }
 
-- (IBAction)comboboxGroup:(NSComboBox *)sender {
+- (IBAction)comboboxGroupAction:(NSComboBox *)sender {
     
     // Not yet implemented
     
 }
 
-- (IBAction)checkboxOwnerRead:(NSButton *)sender {
+- (IBAction)comboboxSignAction:(NSComboBox *)sender {
     
     // Not yet implemented
     
 }
 
-- (IBAction)checkboxOwnerWrite:(NSButton *)sender {
+- (IBAction)checkboxOwnerReadAction:(NSButton *)sender {
     
     // Not yet implemented
     
 }
 
-- (IBAction)checkboxOwnerExecute:(NSButton *)sender {
+- (IBAction)checkboxOwnerWriteAction:(NSButton *)sender {
     
     // Not yet implemented
     
 }
 
-- (IBAction)checkboxGroupRead:(NSButton *)sender {
+- (IBAction)checkboxOwnerExecuteAction:(NSButton *)sender {
     
     // Not yet implemented
     
 }
 
-- (IBAction)checkboxGroupWrite:(NSButton *)sender {
+- (IBAction)checkboxGroupReadAction:(NSButton *)sender {
     
     // Not yet implemented
     
 }
 
-- (IBAction)checkboxGroupExecute:(NSButton *)sender {
+- (IBAction)checkboxGroupWriteAction:(NSButton *)sender {
     
     // Not yet implemented
     
 }
 
-- (IBAction)checkboxEveryoneRead:(NSButton *)sender {
+- (IBAction)checkboxGroupExecuteAction:(NSButton *)sender {
     
     // Not yet implemented
     
 }
 
-- (IBAction)checkboxEveryoneWrite:(NSButton *)sender {
+- (IBAction)checkboxEveryoneReadAction:(NSButton *)sender {
     
     // Not yet implemented
     
 }
 
-- (IBAction)checkboxEveryoneExecute:(NSButton *)sender {
+- (IBAction)checkboxEveryoneWriteAction:(NSButton *)sender {
+    
+    // Not yet implemented
+    
+}
+
+- (IBAction)checkboxEveryoneExecuteAction:(NSButton *)sender {
+    
+    // Not yet implemented
+    
+}
+
+- (IBAction)checkboxProjectIsSignedAction:(NSButton *)sender {
     
     // Not yet implemented
     
@@ -240,7 +284,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Functions
 
-- (void)NewProject {
+- (void)newProject {
     
     // Browse for new project file
     SaveAs *newFile = [[SaveAs alloc] init];
@@ -252,7 +296,7 @@
         
         // Update application window title
         NSString *stringApplicationTitle = [NSString stringWithFormat:@"%@ - %@", stringApplicationName, stringProjectFile];
-        [self.windowMain setTitle:stringApplicationTitle];
+        [self.windowMainOutlet setTitle:stringApplicationTitle];
         
         [Logger setLogEvent:@"New file open successful", nil];
         
@@ -266,7 +310,7 @@
     
 }
 
-- (void)OpenProject {
+- (void)openProject {
     
     // Browse for existing project file
     FilePicker *pickFile = [[FilePicker alloc] init];
@@ -285,14 +329,19 @@
         // Project metadata
         stringProjectName = dictProject[@"ProjectName"];
         stringProjectVersion = dictProject[@"ProjectVersion"];
-        stringProjectHome = dictProject[@"ProjectHome"];
+        stringProjectIdentifier = dictProject[@"ProjectIdentifier"];
+        stringProjectRoot = dictProject[@"ProjectRoot"];
+        stringProjectSource = dictProject[@"ProjectSource"];
+        stringProjectTarget = dictProject[@"ProjectTarget"];
+        stringProjectSign = dictProject[@"ProjectSign"];
+        stringProjectIsSigned = dictProject[@"ProjectIsSigned"];
         stringProjectOwner = dictProject[@"ProjectOwner"];
         stringProjectGroup = dictProject[@"ProjectGroup"];
         stringProjectPermissions = dictProject[@"ProjectPermissions"];
         
         // Update application window title
         NSString *stringApplicationTitle = [NSString stringWithFormat:@"%@ - %@", stringApplicationName, stringProjectFile];
-        [self.windowMain setTitle:stringApplicationTitle];
+        [self.windowMainOutlet setTitle:stringApplicationTitle];
         
         // Parse permissions
         NSString *stringTemp;
@@ -310,10 +359,10 @@
         intPermissionsEveryone = [stringTemp integerValue];
         
         // Update controls
-        [self SetControls];
+        [self setControls];
         
         // Update browser
-        [self ChangeRoot];
+        [self changeRoot];
         
         [Logger setLogEvent:@"Existing file open successful", nil];
         
@@ -327,19 +376,16 @@
     
 }
 
-- (void)SaveProject {
+- (void)saveProject {
     
     // Verify open project
     if (stringProjectFile) {
         
         // Read control values
-        [self GetControls];
-        
-        // Concatenate permissions
-        stringProjectPermissions = [NSString stringWithFormat:@"%@%@%@", [@(intPermissionsOwner) stringValue], [@(intPermissionsGroup) stringValue], [@(intPermissionsEveryone) stringValue]];
+        [self getControls];
         
         // Write project file
-        [Project writeProject:stringProjectFile ApplicationName:stringApplicationName ApplicationVersion:stringApplicationVersion ProjectName:stringProjectName ProjectVersion:stringProjectVersion ProjectHome:stringProjectHome ProjectOwner:stringProjectOwner ProjectGroup:stringProjectGroup ProjectPermissions:stringProjectPermissions];
+        [Project writeProject:stringProjectFile ApplicationName:stringApplicationName ApplicationVersion:stringApplicationVersion ProjectName:stringProjectName ProjectVersion:stringProjectVersion ProjectIdentifier:stringProjectIdentifier ProjectRoot:stringProjectRoot ProjectSource:stringProjectSource ProjectTarget:stringProjectTarget ProjectSign:stringProjectSign ProjectIsSigned:stringProjectIsSigned ProjectOwner:stringProjectOwner ProjectGroup:stringProjectGroup ProjectPermissions:stringProjectPermissions];
         
     }
     
@@ -352,133 +398,232 @@
     
 }
 
-- (void)BuildPKG {
+- (void)buildPKG {
     
-    [Logger setLogEvent:@"Build PKG", nil];
-    [self GetControls];
+    NSFileManager *fileManager;
+    fileManager = [NSFileManager defaultManager];
+    
+    // Validate control values
+    BOOL boolValidateControls = [self validateControls];
+    
+    if (boolValidateControls) {
+    
+        if ([fileManager fileExistsAtPath:stringProjectTarget] == YES) {
+            
+            // pkgbuild
+            [BuildPackage pkgBuild:@"pkg" ProjectName:stringProjectName ProjectVersion:stringProjectVersion ProjectIdentifier:stringProjectIdentifier ProjectRoot:stringProjectRoot ProjectSource:stringProjectSource ProjectTarget:stringProjectTarget];
+            
+            // productsign
+            [SignPackage productSign:@"pkg" ProjectName:stringProjectName ProjectVersion:stringProjectVersion ProjectTarget:stringProjectTarget ProjectSign:stringProjectSign ProjectIsSigned:stringProjectIsSigned];
+            
+            // Get package payload size
+            NSNumber *numberPayloadSize = [PayloadSize getFolderSize:stringProjectSource];
+        
+            // Get package file size
+            NSNumber *numberPackageSize = [FileSize getFileSize:@"pkg" ProjectName:stringProjectName ProjectVersion:stringProjectVersion ProjectTarget:stringProjectTarget ProjectIsSigned:stringProjectIsSigned];
+            
+            // Generate shasum
+            NSString *stringPackageHash = [ShaSum getShaSum:@"pkg" ProjectName:stringProjectName ProjectVersion:stringProjectVersion ProjectTarget:stringProjectTarget ProjectIsSigned:stringProjectIsSigned];
+            
+            // Generate plist
+            [GeneratePlist writePlist:@"pkg" ApplicationName:stringApplicationName ApplicationVersion:stringApplicationVersion ProjectName:stringProjectName ProjectVersion:stringProjectVersion ProjectIdentifier:stringProjectIdentifier ProjectOwner:stringProjectOwner ProjectGroup:stringProjectGroup ProjectPermissions:stringProjectPermissions ProjectRoot:stringProjectRoot ProjectSource:stringProjectSource ProjectTarget:stringProjectTarget PayloadSize:numberPayloadSize PackageSize:numberPackageSize PackageHash:stringPackageHash ProjectIsSigned:stringProjectIsSigned];
+            
+            [Logger setLogEvent:@"Building package in: ", stringProjectTarget, nil];
+            
+        }
+        
+        else {
+            
+            // Add alert for project target
+        
+            [Logger setLogEvent:@"Project target path doesn't exist - PKG not created", nil];
+        
+        }
+        
+    }
     
 }
 
-- (void)BuildDMG {
+- (void)buildDMG {
     
-    [Logger setLogEvent:@"Build DMG", nil];
+    NSFileManager *fileManager;
+    fileManager = [NSFileManager defaultManager];
+    
+    // Validate control values
+    BOOL boolValidateControls = [self validateControls];
+    
+    if (boolValidateControls) {
+        
+        if ([fileManager fileExistsAtPath:stringProjectTarget] == YES) {
+            
+            // hdiutil
+            [BuildPackage hdiUtil:@"dmg" ProjectName:stringProjectName ProjectVersion:stringProjectVersion ProjectSource:stringProjectSource ProjectTarget:stringProjectTarget];
+            
+            // productsign
+            [SignPackage productSign:@"dmg" ProjectName:stringProjectName ProjectVersion:stringProjectVersion ProjectTarget:stringProjectTarget ProjectSign:stringProjectSign ProjectIsSigned:stringProjectIsSigned];
+            
+            // Get package payload size
+            NSNumber *numberPayloadSize = [PayloadSize getFolderSize:stringProjectSource];
+            
+            // Get package file size
+            NSNumber *numberPackageSize = [FileSize getFileSize:@"dmg" ProjectName:stringProjectName ProjectVersion:stringProjectVersion ProjectTarget:stringProjectTarget ProjectIsSigned:stringProjectIsSigned];
+            
+            // Generate shasum
+            NSString *stringPackageHash = [ShaSum getShaSum:@"dmg" ProjectName:stringProjectName ProjectVersion:stringProjectVersion ProjectTarget:stringProjectTarget ProjectIsSigned:stringProjectIsSigned];
+            
+            // Generate plist
+            [GeneratePlist writePlist:@"dmg" ApplicationName:stringApplicationName ApplicationVersion:stringApplicationVersion ProjectName:stringProjectName ProjectVersion:stringProjectVersion ProjectIdentifier:stringProjectIdentifier ProjectOwner:stringProjectOwner ProjectGroup:stringProjectGroup ProjectPermissions:stringProjectPermissions ProjectRoot:stringProjectRoot ProjectSource:stringProjectSource ProjectTarget:stringProjectTarget PayloadSize:numberPayloadSize PackageSize:numberPackageSize PackageHash:stringPackageHash ProjectIsSigned:stringProjectIsSigned];
+            
+            [Logger setLogEvent:@"Building package in: ", stringProjectTarget, nil];
+            
+        }
+        
+        else {
+            
+            // Add alert for project target
+            
+            [Logger setLogEvent:@"Project target path doesn't exist - DMG not created", nil];
+        
+        }
+        
+    }
     
 }
 
-- (void)Browse {
+- (void)browseRoot {
     
-    // Browse for project home
-    BrowsePath *projectHome = [[BrowsePath alloc] init];
-    stringProjectHome = [projectHome getPath];
+    // Browse for project root
+    BrowsePath *projectRoot = [[BrowsePath alloc] init];
+    stringProjectRoot = [projectRoot getPath];
     
-    // Handle project home browse cancel
-    if (stringProjectHome) {
+    // Handle project root browse cancel
+    if (stringProjectRoot) {
         
-        [self.labelHome setStringValue:stringProjectHome];
-        [Logger setLogEvent:@"Project Home: ", stringProjectHome, nil];
-        
-        // Update browser
-        [self ChangeRoot];
+        [self.textboxRootOutlet setStringValue:stringProjectRoot];
+        [Logger setLogEvent:@"Project root: ", stringProjectRoot, nil];
         
     }
     
     else {
         
-        stringProjectHome = self.labelHome.stringValue;
-        [Logger setLogEvent:@"Browse project home aborted", nil];
+        stringProjectRoot = self.textboxRootOutlet.stringValue;
+        [Logger setLogEvent:@"Browse project root aborted", nil];
         
     }
     
 }
 
-- (void)ReadUsers {
+- (void)browseSource {
     
-    NSString *stringPasswdPath = @"/etc/passwd";
-    DDFileReader *readerPasswd = [[DDFileReader alloc] initWithFilePath:stringPasswdPath];
+    // Browse for project source
+    BrowsePath *projectSource = [[BrowsePath alloc] init];
+    stringProjectSource = [projectSource getPath];
     
-    [readerPasswd enumerateLinesUsingBlock:^(NSString *stringLine, BOOL *boolStop) {
+    // Handle project source browse cancel
+    if (stringProjectSource) {
         
-        unichar unicharFirst = [stringLine characterAtIndex:0];
+        [self.textboxSourceOutlet setStringValue:stringProjectSource];
+        [Logger setLogEvent:@"Project source: ", stringProjectSource, nil];
         
-        if (unicharFirst == '#') {
-            
-            // Ignore line
-            
-        }
+        // Update source browser
+        [self changeRoot];
         
-        else {
-            
-            NSArray *arrayLine = [stringLine componentsSeparatedByString: @":"];
-            NSString *stringUser = [arrayLine objectAtIndex:0];
-            NSString *stringUID = [arrayLine objectAtIndex:2];
-            NSString *stringFormattedUser = [NSString stringWithFormat:@"%@ (%@)", stringUser, stringUID];
-            //NSInteger intUID = [stringUID integerValue];
-            
-            [self.comboboxOwner addItemWithObjectValue:stringFormattedUser];
-            
-            //if (intUID >= 0) {
-            
-            //    [self.comboboxOwner insertItemWithObjectValue:stringFormattedUser atIndex:intUID];
-                
-            //}
-            
-        }
+    }
+    
+    else {
         
-    }];
+        stringProjectSource = self.textboxSourceOutlet.stringValue;
+        [Logger setLogEvent:@"Browse project source aborted", nil];
+        
+    }
+    
+}
+
+- (void)browseTarget {
+    
+    // Browse for project target
+    BrowsePath *projectTarget = [[BrowsePath alloc] init];
+    stringProjectTarget = [projectTarget getPath];
+    
+    // Handle project target browse cancel
+    if (stringProjectTarget) {
+        
+        [self.textboxTargetOutlet setStringValue:stringProjectTarget];
+        [Logger setLogEvent:@"Project target: ", stringProjectTarget, nil];
+        
+    }
+    
+    else {
+        
+        stringProjectTarget = self.textboxTargetOutlet.stringValue;
+        [Logger setLogEvent:@"Browse project target aborted", nil];
+        
+    }
+    
+}
+
+- (void)readUsers {
+    
+    // Create usergroup class
+    UserGroup *readUsers = [[UserGroup alloc] init];
+    NSArray *arrayUsers = [readUsers getUserGroup:@"user"];
+    
+    for (id idUser in arrayUsers) {
+        
+        [self.comboboxOwnerOutlet addItemWithObjectValue:idUser];
+        
+    }
     
     [Logger setLogEvent:@"Reading users", nil];
     
 }
 
-- (void)ReadGroups {
+- (void)readGroups {
     
-    NSString *stringGroupPath = @"/etc/group";
-    DDFileReader *readerGroup = [[DDFileReader alloc] initWithFilePath:stringGroupPath];
+    // Create usergroup class
+    UserGroup *readGroups = [[UserGroup alloc] init];
+    NSArray *arrayGroups = [readGroups getUserGroup:@"group"];
     
-    [readerGroup enumerateLinesUsingBlock:^(NSString *stringLine, BOOL *boolStop) {
+    for (id idGroup in arrayGroups) {
         
-        unichar unicharFirst = [stringLine characterAtIndex:0];
+        [self.comboboxGroupOutlet addItemWithObjectValue:idGroup];
         
-        if (unicharFirst == '#') {
-            
-            // Ignore line
-            
-        }
-        
-        else {
-            
-            NSArray *arrayLine = [stringLine componentsSeparatedByString: @":"];
-            NSString *stringGroup = [arrayLine objectAtIndex:0];
-            NSString *stringGID = [arrayLine objectAtIndex:2];
-            NSString *stringFormattedGroup = [NSString stringWithFormat:@"%@ (%@)", stringGroup, stringGID];
-            //NSInteger intGID = [stringGID integerValue];
-            
-            [self.comboboxGroup addItemWithObjectValue:stringFormattedGroup];
-            
-            //if (intGID >= 0) {
-            
-            //    [self.comboboxGroup insertItemWithObjectValue:stringFormattedGroup atIndex:intGID];
-            
-            //}
-            
-        }
-        
-    }];
+    }
     
     [Logger setLogEvent:@"Reading groups", nil];
     
 }
 
-- (void)GetControls {
+- (void)readIdentities {
     
-    // Labels
-    stringProjectName = [self.labelName stringValue];
-    stringProjectVersion = [self.labelVersion stringValue];
-    stringProjectHome = [self.labelHome stringValue];
+    // Create identities class
+    Identities *readIdentities = [[Identities alloc] init];
+    NSArray *arrayIdentities = [readIdentities getIdentities];
+    
+    for (id idIdentity in arrayIdentities) {
+        
+        [self.comboboxSignOutlet addItemWithObjectValue:idIdentity];
+        
+    }
+    
+    [Logger setLogEvent:@"Reading identities", nil];
+    
+}
+
+- (void)getControls {
+    
+    // Textboxes
+    stringProjectName = [self.textboxNameOutlet stringValue];
+    stringProjectVersion = [self.textboxVersionOutlet stringValue];
+    stringProjectIdentifier = [self.textboxIdentifierOutlet stringValue];
+    stringProjectRoot = [self.textboxRootOutlet stringValue];
+    stringProjectSource = [self.textboxSourceOutlet stringValue];
+    stringProjectTarget = [self.textboxTargetOutlet stringValue];
     
     // Comboboxes
-    stringProjectOwner = [self.comboboxOwner objectValueOfSelectedItem];
-    stringProjectGroup = [self.comboboxGroup objectValueOfSelectedItem];
+    stringProjectOwner = [self.comboboxOwnerOutlet objectValueOfSelectedItem];
+    stringProjectGroup = [self.comboboxGroupOutlet objectValueOfSelectedItem];
+    stringProjectSign = [self.comboboxSignOutlet objectValueOfSelectedItem];
     
     // Reset permissions values
     intPermissionsOwner = 0;
@@ -486,57 +631,69 @@
     intPermissionsEveryone = 0;
     
     // Checkboxes
-    if ([self.checkboxOwnerRead state] == NSOnState) {
+    if ([self.checkboxOwnerReadOutlet state] == NSOnState) {
         
         intPermissionsOwner = intPermissionsOwner + 4;
         
     }
     
-    if ([self.checkboxOwnerWrite state] == NSOnState) {
+    if ([self.checkboxOwnerWriteOutlet state] == NSOnState) {
         
         intPermissionsOwner = intPermissionsOwner + 2;
         
     }
     
-    if ([self.checkboxOwnerExecute state] == NSOnState) {
+    if ([self.checkboxOwnerExecuteOutlet state] == NSOnState) {
         
         intPermissionsOwner = intPermissionsOwner + 1;
         
     }
     
-    if ([self.checkboxGroupRead state] == NSOnState) {
+    if ([self.checkboxGroupReadOutlet state] == NSOnState) {
         
         intPermissionsGroup = intPermissionsGroup + 4;
         
     }
     
-    if ([self.checkboxGroupWrite state] == NSOnState) {
+    if ([self.checkboxGroupWriteOutlet state] == NSOnState) {
         
         intPermissionsGroup = intPermissionsGroup + 2;
         
     }
     
-    if ([self.checkboxGroupExecute state] == NSOnState) {
+    if ([self.checkboxGroupExecuteOutlet state] == NSOnState) {
         
         intPermissionsGroup = intPermissionsGroup + 1;
         
     }
     
-    if ([self.checkboxEveryoneRead state] == NSOnState) {
+    if ([self.checkboxEveryoneReadOutlet state] == NSOnState) {
         
         intPermissionsEveryone = intPermissionsEveryone + 4;
         
     }
     
-    if ([self.checkboxEveryoneWrite state] == NSOnState) {
+    if ([self.checkboxEveryoneWriteOutlet state] == NSOnState) {
         
         intPermissionsEveryone = intPermissionsEveryone + 2;
         
     }
     
-    if ([self.checkboxEveryoneExecute state] == NSOnState) {
+    if ([self.checkboxEveryoneExecuteOutlet state] == NSOnState) {
         
         intPermissionsEveryone = intPermissionsEveryone + 1;
+        
+    }
+    
+    if ([self.checkboxProjectIsSignedOutlet state] == NSOnState) {
+        
+        stringProjectIsSigned = @"TRUE";
+        
+    }
+    
+    else {
+        
+        stringProjectIsSigned = @"FALSE";
         
     }
     
@@ -551,138 +708,158 @@
     stringTemp = [@(intPermissionsEveryone) stringValue];
     NSLog(@"Everyone: %@", stringTemp);
     
+    // Concatenate permissions
+    stringProjectPermissions = [NSString stringWithFormat:@"%@%@%@", [@(intPermissionsOwner) stringValue], [@(intPermissionsGroup) stringValue], [@(intPermissionsEveryone) stringValue]];
+    
     [Logger setLogEvent:@"Getting control values", nil];
     
 }
 
-- (void)SetControls {
+- (void)setControls {
     
-    // Labels
-    [self.labelName setStringValue:stringProjectName];
-    [self.labelVersion setStringValue:stringProjectVersion];
-    [self.labelHome setStringValue:stringProjectHome];
+    // Textboxes
+    [self.textboxNameOutlet setStringValue:stringProjectName];
+    [self.textboxVersionOutlet setStringValue:stringProjectVersion];
+    [self.textboxIdentifierOutlet setStringValue:stringProjectIdentifier];
+    [self.textboxRootOutlet setStringValue:stringProjectRoot];
+    [self.textboxSourceOutlet setStringValue:stringProjectSource];
+    [self.textboxTargetOutlet setStringValue:stringProjectTarget];
     
     // Comboboxes
-    [self.comboboxOwner selectItemWithObjectValue:stringProjectOwner];
-    [self.comboboxGroup selectItemWithObjectValue:stringProjectGroup];
+    [self.comboboxOwnerOutlet selectItemWithObjectValue:stringProjectOwner];
+    [self.comboboxGroupOutlet selectItemWithObjectValue:stringProjectGroup];
+    [self.comboboxSignOutlet selectItemWithObjectValue:stringProjectSign];
     
     // Owner checkboxes
     if (intPermissionsOwner >= 4) {
         
-        [self.checkboxOwnerRead setState:NSOnState];
+        [self.checkboxOwnerReadOutlet setState:NSOnState];
         intPermissionsOwner = intPermissionsOwner - 4;
         
     }
     
     else {
         
-        [self.checkboxOwnerRead setState:NSOffState];
+        [self.checkboxOwnerReadOutlet setState:NSOffState];
         
     }
     
     if (intPermissionsOwner >= 2) {
         
-        [self.checkboxOwnerWrite setState:NSOnState];
+        [self.checkboxOwnerWriteOutlet setState:NSOnState];
         intPermissionsOwner = intPermissionsOwner - 2;
         
     }
     
     else {
         
-        [self.checkboxOwnerWrite setState:NSOffState];
+        [self.checkboxOwnerWriteOutlet setState:NSOffState];
         
     }
     
     if (intPermissionsOwner >= 1) {
         
-        [self.checkboxOwnerExecute setState:NSOnState];
+        [self.checkboxOwnerExecuteOutlet setState:NSOnState];
         //intPermissionsOwner = intPermissionsOwner - 1;
         
     }
     
     else {
         
-        [self.checkboxOwnerExecute setState:NSOffState];
+        [self.checkboxOwnerExecuteOutlet setState:NSOffState];
         
     }
     
     // Group checkboxes
     if (intPermissionsGroup >= 4) {
         
-        [self.checkboxGroupRead setState:NSOnState];
+        [self.checkboxGroupReadOutlet setState:NSOnState];
         intPermissionsGroup = intPermissionsGroup - 4;
         
     }
     
     else {
         
-        [self.checkboxGroupRead setState:NSOffState];
+        [self.checkboxGroupReadOutlet setState:NSOffState];
         
     }
     
     if (intPermissionsGroup >= 2) {
         
-        [self.checkboxGroupWrite setState:NSOnState];
+        [self.checkboxGroupWriteOutlet setState:NSOnState];
         intPermissionsGroup = intPermissionsGroup - 2;
         
     }
     
     else {
         
-        [self.checkboxGroupWrite setState:NSOffState];
+        [self.checkboxGroupWriteOutlet setState:NSOffState];
         
     }
     
     if (intPermissionsGroup >= 1) {
         
-        [self.checkboxGroupExecute setState:NSOnState];
+        [self.checkboxGroupExecuteOutlet setState:NSOnState];
         //intPermissionsGroup = intPermissionsGroup - 1;
         
     }
     
     else {
         
-        [self.checkboxGroupExecute setState:NSOffState];
+        [self.checkboxGroupExecuteOutlet setState:NSOffState];
         
     }
 
     // Everyone checkboxes
     if (intPermissionsEveryone >= 4) {
         
-        [self.checkboxEveryoneRead setState:NSOnState];
+        [self.checkboxEveryoneReadOutlet setState:NSOnState];
         intPermissionsEveryone = intPermissionsEveryone - 4;
         
     }
     
     else {
         
-        [self.checkboxEveryoneRead setState:NSOffState];
+        [self.checkboxEveryoneReadOutlet setState:NSOffState];
         
     }
     
     if (intPermissionsEveryone >= 2) {
         
-        [self.checkboxEveryoneWrite setState:NSOnState];
+        [self.checkboxEveryoneWriteOutlet setState:NSOnState];
         intPermissionsEveryone = intPermissionsEveryone - 2;
         
     }
     
     else {
         
-        [self.checkboxEveryoneWrite setState:NSOffState];
+        [self.checkboxEveryoneWriteOutlet setState:NSOffState];
         
     }
     
     if (intPermissionsEveryone >= 1) {
         
-        [self.checkboxEveryoneExecute setState:NSOnState];
+        [self.checkboxEveryoneExecuteOutlet setState:NSOnState];
         //intPermissionsEveryone = intPermissionsEveryone - 1;
         
     }
     
     else {
         
-        [self.checkboxEveryoneExecute setState:NSOffState];
+        [self.checkboxEveryoneExecuteOutlet setState:NSOffState];
+        
+    }
+    
+    // Project Is Signed checkbox
+    if ([stringProjectIsSigned isEqualToString: @"TRUE"]) {
+        
+        [self.checkboxProjectIsSignedOutlet setState:NSOnState];
+        
+    }
+    
+    else {
+        
+        [self.checkboxProjectIsSignedOutlet setState:NSOffState];
         
     }
     
@@ -690,31 +867,108 @@
     
 }
 
-- (void)ValidateControls {
+- (BOOL)validateControls {
+    
+    // Read control values
+    [self getControls];
+    
+    // Initialize variables
+    BOOL boolValidated = 1;
+    NSString *stringAlert;
+    
+    // IsSigned
+    if ([stringProjectIsSigned isEqualToString: @"TRUE"]) {
+        
+        if (!stringProjectSign.length) {
+            
+            stringAlert = @"Sign";
+            boolValidated = 0;
+            
+        }
+    
+    }
+    
+    // Textboxes
+    if (!stringProjectTarget.length) {
+        
+        stringAlert = @"Target";
+        boolValidated = 0;
+        
+    }
+    
+    if (!stringProjectSource.length) {
+        
+        stringAlert = @"Source";
+        boolValidated = 0;
+        
+    }
+    
+    if (!stringProjectRoot.length) {
+        
+        stringAlert = @"Root";
+        boolValidated = 0;
+        
+    }
+    
+    if (!stringProjectIdentifier.length) {
+        
+        stringAlert = @"Identifier";
+        boolValidated = 0;
+        
+    }
+    
+    if (!stringProjectVersion.length) {
+        
+        stringAlert = @"Version";
+        boolValidated = 0;
+        
+    }
+    
+    if (!stringProjectName.length) {
+        
+        stringAlert = @"Name";
+        boolValidated = 0;
+        
+    }
+    
+    if (!boolValidated) {
+        
+        NSAlert *warningAlert = [[NSAlert alloc] init];
+        warningAlert.messageText = @"Incomplete Project";
+        warningAlert.informativeText = [NSString stringWithFormat:@"Please validate: %@", stringAlert];
+        [warningAlert addButtonWithTitle:@"OK"];
+        
+        [warningAlert beginSheetModalForWindow:self.windowMainOutlet completionHandler:^(NSInteger result) {
+            
+        }];
+        
+    }
     
     [Logger setLogEvent:@"Validating control values", nil];
     
+    return boolValidated;
+    
 }
 
-- (void)ChangeRoot {
+- (void)changeRoot {
     
     NSFileManager *fileManager;
     fileManager = [NSFileManager defaultManager];
     
-    if ([fileManager fileExistsAtPath:stringProjectHome ] == YES) {
+    if ([fileManager fileExistsAtPath:stringProjectSource ] == YES) {
     
-        _rootNode = [[FileSystemNode alloc] initWithURL:[NSURL fileURLWithPath:stringProjectHome]];
-        [self.browser loadColumnZero];
+        _rootNodeSource = [[FileSystemNode alloc] initWithURL:[NSURL fileURLWithPath:stringProjectSource]];
+        [self.browserSourceOutlet loadColumnZero];
         
-        [Logger setLogEvent:@"Setting browser root to: ", stringProjectHome, nil];
+        [Logger setLogEvent:@"Setting browser root to: ", stringProjectSource, nil];
         
     }
     
     else {
         
-        // Add alert for project home
+        // Add alert for project source
         
-        [Logger setLogEvent:@"Project home path doesn't exist - no change to root", nil];
+        [Logger setLogEvent:@"Project source path doesn't exist - no change to root", nil];
         
     }
     
@@ -723,61 +977,61 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Complex browser required delegate methods
 
-- (NSInteger)browser:(NSBrowser *)browser numberOfChildrenOfItem:(id)item {
+- (NSInteger)browser:(NSBrowser *)browserSourceOutlet numberOfChildrenOfItem:(id)item {
     
     FileSystemNode *node = (FileSystemNode *)item;
     return node.children.count;
     
 }
 
-- (id)browser:(NSBrowser *)browser child:(NSInteger)index ofItem:(id)item {
+- (id)browser:(NSBrowser *)browserSourceOutlet child:(NSInteger)index ofItem:(id)item {
     
     FileSystemNode *node = (FileSystemNode *)item;
     return (node.children)[index];
     
 }
 
-- (BOOL)browser:(NSBrowser *)browser isLeafItem:(id)item {
+- (BOOL)browser:(NSBrowser *)browserSourceOutlet isLeafItem:(id)item {
     
     FileSystemNode *node = (FileSystemNode *)item;
     return !node.isDirectory || node.isPackage; // take into account packaged apps and documents
     
 }
 
-- (id)browser:(NSBrowser *)browser objectValueForItem:(id)item {
+- (id)browser:(NSBrowser *)browserSourceOutlet objectValueForItem:(id)item {
     
     FileSystemNode *node = (FileSystemNode *)item;
     return node.displayName;
     
 }
 
-- (void)browser:(NSBrowser *)browser willDisplayCell:(FileSystemBrowserCell *)cell atRow:(NSInteger)row column:(NSInteger)column {
+- (void)browser:(NSBrowser *)browserSourceOutlet willDisplayCell:(FileSystemBrowserCell *)cell atRow:(NSInteger)row column:(NSInteger)column {
     
     // Find the item and set the image.
-    NSIndexPath *indexPath = [browser indexPathForColumn:column];
+    NSIndexPath *indexPath = [browserSourceOutlet indexPathForColumn:column];
     indexPath = [indexPath indexPathByAddingIndex:row];
-    FileSystemNode *node = [browser itemAtIndexPath:indexPath];
+    FileSystemNode *node = [browserSourceOutlet itemAtIndexPath:indexPath];
     cell.image = node.icon;
     cell.labelColor = node.labelColor;
     
 }
 
-- (NSViewController *)browser:(NSBrowser *)browser previewViewControllerForLeafItem:(id)item {
+- (NSViewController *)browser:(NSBrowser *)browserSourceOutlet previewViewControllerForLeafItem:(id)item {
     
-    if (self.sharedPreviewController == nil) {
+    if (self.sharedPreviewControllerSource == nil) {
         
-        _sharedPreviewController = [[PreviewViewController alloc] initWithNibName:@"PreviewView" bundle:[NSBundle bundleForClass:[self class]]];
+        _sharedPreviewControllerSource = [[PreviewViewController alloc] initWithNibName:@"PreviewView" bundle:[NSBundle bundleForClass:[self class]]];
         
     }
     
-    return self.sharedPreviewController; // NSBrowser will set the representedObject for us
+    return self.sharedPreviewControllerSource; // NSBrowser will set the representedObject for us
     
 }
 
-- (NSViewController *)browser:(NSBrowser *)browser headerViewControllerForItem:(id)item {
+- (NSViewController *)browser:(NSBrowser *)browserSourceOutlet headerViewControllerForItem:(id)item {
     
     // Add a header for the first column, just as an example
-    if (self.rootNode == item) {
+    if (self.rootNodeSource == item) {
         
         return [[NSViewController alloc] initWithNibName:@"HeaderView" bundle:[NSBundle bundleForClass:[self class]]];
         
@@ -791,13 +1045,13 @@
     
 }
 
-- (CGFloat)browser:(NSBrowser *)browser shouldSizeColumn:(NSInteger)columnIndex forUserResize:(BOOL)forUserResize toWidth:(CGFloat)suggestedWidth  {
+- (CGFloat)browser:(NSBrowser *)browserSourceOutlet shouldSizeColumn:(NSInteger)columnIndex forUserResize:(BOOL)forUserResize toWidth:(CGFloat)suggestedWidth  {
     
     if (!forUserResize) {
         
-        id item = [browser parentForItemsInColumn:columnIndex];
+        id item = [browserSourceOutlet parentForItemsInColumn:columnIndex];
         
-        if ([self browser:browser isLeafItem:item]) {
+        if ([self browser:browserSourceOutlet isLeafItem:item]) {
             
             suggestedWidth = 200;
             
@@ -812,35 +1066,35 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Complex browser dragging Source
 
-- (BOOL)browser:(NSBrowser *)browser writeRowsWithIndexes:(NSIndexSet *)rowIndexes inColumn:(NSInteger)column toPasteboard:(NSPasteboard *)pasteboard {
+- (BOOL)browser:(NSBrowser *)browserSourceOutlet writeRowsWithIndexes:(NSIndexSet *)rowIndexes inColumn:(NSInteger)column toPasteboard:(NSPasteboard *)pasteboard {
     
     NSMutableArray *filenames = [NSMutableArray arrayWithCapacity:rowIndexes.count];
-    NSIndexPath *baseIndexPath = [browser indexPathForColumn:column];
+    NSIndexPath *baseIndexPath = [browserSourceOutlet indexPathForColumn:column];
     
     for (NSUInteger i = rowIndexes.firstIndex; i <= rowIndexes.lastIndex; i = [rowIndexes indexGreaterThanIndex:i]) {
         
-        FileSystemNode *fileSystemNode = [browser itemAtIndexPath:[baseIndexPath indexPathByAddingIndex:i]];
+        FileSystemNode *fileSystemNode = [browserSourceOutlet itemAtIndexPath:[baseIndexPath indexPathByAddingIndex:i]];
         [filenames addObject:(fileSystemNode.URL).path];
         
     }
     
     [pasteboard declareTypes:@[NSFilenamesPboardType] owner:self];
     [pasteboard setPropertyList:filenames forType:NSFilenamesPboardType];
-    _draggedColumnIndex = column;
+    _draggedColumnIndexSource = column;
     return YES;
     
 }
 
-- (BOOL)browser:(NSBrowser *)browser canDragRowsWithIndexes:(NSIndexSet *)rowIndexes inColumn:(NSInteger)column withEvent:(NSEvent *)event {
+- (BOOL)browser:(NSBrowser *)browserSourceOutlet canDragRowsWithIndexes:(NSIndexSet *)rowIndexes inColumn:(NSInteger)column withEvent:(NSEvent *)event {
     
     // We will allow dragging any cell - even disabled ones. By default, NSBrowser will not let you drag a disabled cell
     return YES;
     
 }
 
-- (NSImage *)browser:(NSBrowser *)browser draggingImageForRowsWithIndexes:(NSIndexSet *)rowIndexes inColumn:(NSInteger)column withEvent:(NSEvent *)event offset:(NSPointPointer)dragImageOffset {
+- (NSImage *)browser:(NSBrowser *)browserSourceOutlet draggingImageForRowsWithIndexes:(NSIndexSet *)rowIndexes inColumn:(NSInteger)column withEvent:(NSEvent *)event offset:(NSPointPointer)dragImageOffset {
     
-    NSImage *result = [browser draggingImageForRowsWithIndexes:rowIndexes inColumn:column withEvent:event offset:dragImageOffset];
+    NSImage *result = [browserSourceOutlet draggingImageForRowsWithIndexes:rowIndexes inColumn:column withEvent:event offset:dragImageOffset];
     
     // Create a custom drag image "badge" that displays the number of items being dragged
     if (rowIndexes.count > 1) {
@@ -884,7 +1138,7 @@
     
     if (column >= 0) {
         
-        NSIndexPath *indexPath = [self.browser indexPathForColumn:column];
+        NSIndexPath *indexPath = [self.browserSourceOutlet indexPathForColumn:column];
         
         if (row >= 0) {
             
@@ -892,7 +1146,7 @@
             
         }
         
-        id result = [self.browser itemAtIndexPath:indexPath];
+        id result = [self.browserSourceOutlet itemAtIndexPath:indexPath];
         return (FileSystemNode *)result;
         
     }
@@ -905,7 +1159,7 @@
     
 }
 
-- (NSDragOperation)browser:(NSBrowser *)browser validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger *)row column:(NSInteger *)column dropOperation:(NSBrowserDropOperation *)dropOperation {
+- (NSDragOperation)browser:(NSBrowser *)browserSourceOutlet validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger *)row column:(NSInteger *)column dropOperation:(NSBrowserDropOperation *)dropOperation {
     
     NSDragOperation result = NSDragOperationNone;
     
@@ -922,7 +1176,7 @@
         // Only allow dropping in folders, but don't allow dragging from the same folder into itself, if we are the source
         if (*column != -1) {
             
-            BOOL droppingFromSameFolder = ([info draggingSource] == browser) && (*column == self.draggedColumnIndex);
+            BOOL droppingFromSameFolder = ([info draggingSource] == browserSourceOutlet) && (*column == self.draggedColumnIndexSource);
             
             if (*row != -1) {
                 
@@ -967,7 +1221,7 @@
     
 }
 
-- (BOOL)browser:(NSBrowser *)browser acceptDrop:(id <NSDraggingInfo>)info atRow:(NSInteger)row column:(NSInteger)column dropOperation:(NSBrowserDropOperation)dropOperation {
+- (BOOL)browser:(NSBrowser *)browserSourceOutlet acceptDrop:(id <NSDraggingInfo>)info atRow:(NSInteger)row column:(NSInteger)column dropOperation:(NSBrowserDropOperation)dropOperation {
     
     NSArray *filenames = [[info draggingPasteboard] propertyListForType:NSFilenamesPboardType];
     // Find the target folder
@@ -990,7 +1244,7 @@
         else {
             
             // Grab the parent for the column, which should be a directory
-            targetFileSystemNode = (FileSystemNode *)[browser parentForItemsInColumn:column];
+            targetFileSystemNode = (FileSystemNode *)[browserSourceOutlet parentForItemsInColumn:column];
             
         }
         
@@ -1029,7 +1283,7 @@
         [warningAlert addButtonWithTitle:@"Yes"];
         [warningAlert addButtonWithTitle:@"No"];
         
-        [warningAlert beginSheetModalForWindow:self.windowMain completionHandler:^(NSInteger result) {
+        [warningAlert beginSheetModalForWindow:self.windowMainOutlet completionHandler:^(NSInteger result) {
             
             if (result == NSAlertFirstButtonReturn) {
                 
@@ -1054,11 +1308,11 @@
                 // It would be more efficient to invalidate the children of the "from" and "to" nodes and then
                 // call -reloadColumn: on each of the corresponding columns. However, we just reload every column
                 //
-                [self.rootNode invalidateChildren];
+                [self.rootNodeSource invalidateChildren];
                 
-                for (NSInteger col = self.browser.lastColumn; col >= 0; col--) {
+                for (NSInteger col = self.browserSourceOutlet.lastColumn; col >= 0; col--) {
                     
-                    [self.browser reloadColumn:col];
+                    [self.browserSourceOutlet reloadColumn:col];
                     
                 }
                 
@@ -1080,7 +1334,7 @@
 - (void)browserDoubleClick:(id)sender {
     
     // Find the clicked item and open it in Finder
-    FileSystemNode *clickedNode = [self fileSystemNodeAtRow:self.browser.clickedRow column:self.browser.clickedColumn];
+    FileSystemNode *clickedNode = [self fileSystemNodeAtRow:self.browserSourceOutlet.clickedRow column:self.browserSourceOutlet.clickedColumn];
     
     if (clickedNode != nil) {
         

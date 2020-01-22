@@ -25,13 +25,13 @@
 @property (nonatomic, copy) NSString *lineDelimiter;
 @property (nonatomic) NSUInteger chunkSize;
 
-- (id) initWithFilePath:(NSString *)aPath;
+- (id)initWithFilePath:(NSString *)aPath;
 
-- (NSString *) readLine;
-- (NSString *) readTrimmedLine;
+- (NSString *)readLine;
+- (NSString *)readTrimmedLine;
 
 #if NS_BLOCKS_AVAILABLE
-- (void) enumerateLinesUsingBlock:(void(^)(NSString*, BOOL *))block;
+- (void)enumerateLinesUsingBlock:(void(^)(NSString*, BOOL *))block;
 #endif
 
 @end

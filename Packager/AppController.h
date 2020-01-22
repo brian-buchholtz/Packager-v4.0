@@ -3,7 +3,9 @@
 //  Packager
 //
 //  Created by Brian Buchholtz on 11/7/19.
+//
 //  Copyright © 2019 VMware. All rights reserved.
+//
 //
 
 @import Cocoa;
@@ -28,11 +30,18 @@
     
     NSString *stringProjectName;
     NSString *stringProjectVersion;
-    NSString *stringProjectHome;
+    NSString *stringProjectIdentifier;
+    
+    NSString *stringProjectSource;
+    NSString *stringProjectTarget;
     
     NSString *stringProjectOwner;
     NSString *stringProjectGroup;
     NSString *stringProjectPermissions;
+    
+    NSString *stringProjectRoot;
+    NSString *stringProjectSign;
+    NSString *stringProjectIsSigned;
     
     // Control variables
     NSInteger intPermissionsOwner;
@@ -41,76 +50,88 @@
     
 }
 
-// Menu
-- (IBAction)menuNewProject:(id)sender;
-- (IBAction)menuOpenProject:(id)sender;
-- (IBAction)menuSaveProject:(id)sender;
-
-- (IBAction)menuBuildPKG:(id)sender;
-- (IBAction)menuBuildDMG:(id)sender;
-
 // Control outlets
-@property (weak) IBOutlet NSWindow *windowMain;
+@property (weak) IBOutlet NSWindow *windowMainOutlet;
 
-@property (strong) IBOutlet NSTextField *labelName;
-@property (strong) IBOutlet NSTextField *labelVersion;
-@property (strong) IBOutlet NSTextField *labelHome;
+@property (strong) IBOutlet NSTextField *textboxNameOutlet;
+@property (strong) IBOutlet NSTextField *textboxVersionOutlet;
+@property (strong) IBOutlet NSTextField *textboxIdentifierOutlet;
+@property (strong) IBOutlet NSTextField *textboxRootOutlet;
+@property (strong) IBOutlet NSTextField *textboxSourceOutlet;
+@property (strong) IBOutlet NSTextField *textboxTargetOutlet;
 
-@property (strong) IBOutlet NSComboBox *comboboxOwner;
-@property (strong) IBOutlet NSComboBox *comboboxGroup;
+@property (strong) IBOutlet NSComboBox *comboboxOwnerOutlet;
+@property (strong) IBOutlet NSComboBox *comboboxGroupOutlet;
+@property (strong) IBOutlet NSComboBox *comboboxSignOutlet;
 
-@property (strong) IBOutlet NSComboBoxCell *comboboxcellGroup;
-@property (strong) IBOutlet NSComboBoxCell *comboboxcellOwner;
+@property (strong) IBOutlet NSButton *checkboxOwnerReadOutlet;
+@property (strong) IBOutlet NSButton *checkboxOwnerWriteOutlet;
+@property (strong) IBOutlet NSButton *checkboxOwnerExecuteOutlet;
+@property (strong) IBOutlet NSButton *checkboxGroupReadOutlet;
+@property (strong) IBOutlet NSButton *checkboxGroupWriteOutlet;
+@property (strong) IBOutlet NSButton *checkboxGroupExecuteOutlet;
+@property (strong) IBOutlet NSButton *checkboxEveryoneReadOutlet;
+@property (strong) IBOutlet NSButton *checkboxEveryoneWriteOutlet;
+@property (strong) IBOutlet NSButton *checkboxEveryoneExecuteOutlet;
+@property (strong) IBOutlet NSButton *checkboxProjectIsSignedOutlet;
 
-@property (strong) IBOutlet NSButton *checkboxOwnerRead;
-@property (strong) IBOutlet NSButton *checkboxOwnerWrite;
-@property (strong) IBOutlet NSButton *checkboxOwnerExecute;
-@property (strong) IBOutlet NSButton *checkboxGroupRead;
-@property (strong) IBOutlet NSButton *checkboxGroupWrite;
-@property (strong) IBOutlet NSButton *checkboxGroupExecute;
-@property (strong) IBOutlet NSButton *checkboxEveryoneRead;
-@property (strong) IBOutlet NSButton *checkboxEveryoneWrite;
-@property (strong) IBOutlet NSButton *checkboxEveryoneExecute;
-@property (weak) IBOutlet NSBrowser *browser;
+@property (weak) IBOutlet NSBrowser *browserSourceOutlet;
 
 // Control properties
-@property (strong) FileSystemNode *rootNode;
-@property NSInteger draggedColumnIndex;
-@property (strong) PreviewViewController *sharedPreviewController;
+@property (strong) FileSystemNode *rootNodeSource;
+@property NSInteger draggedColumnIndexSource;
+@property (strong) PreviewViewController *sharedPreviewControllerSource;
 
 // Control actions
-- (IBAction)buttonNewProject:(NSButton *)sender;
-- (IBAction)buttonOpenProject:(NSButton *)sender;
-- (IBAction)buttonSaveProject:(NSButton *)sender;
-- (IBAction)buttonBuildPKG:(NSButton *)sender;
-- (IBAction)buttonBuildDMG:(NSButton *)sender;
-- (IBAction)buttonBrowse:(NSButton *)sender;
+- (IBAction)menuNewProjectAction:(id)sender;
+- (IBAction)menuOpenProjectAction:(id)sender;
+- (IBAction)menuSaveProjectAction:(id)sender;
 
-- (IBAction)comboboxOwner:(NSComboBox *)sender;
-- (IBAction)comboboxGroup:(NSComboBox *)sender;
+- (IBAction)menuBuildPKGAction:(id)sender;
+- (IBAction)menuBuildDMGAction:(id)sender;
 
-- (IBAction)checkboxOwnerRead:(NSButton *)sender;
-- (IBAction)checkboxOwnerWrite:(NSButton *)sender;
-- (IBAction)checkboxOwnerExecute:(NSButton *)sender;
-- (IBAction)checkboxGroupRead:(NSButton *)sender;
-- (IBAction)checkboxGroupWrite:(NSButton *)sender;
-- (IBAction)checkboxGroupExecute:(NSButton *)sender;
-- (IBAction)checkboxEveryoneRead:(NSButton *)sender;
-- (IBAction)checkboxEveryoneWrite:(NSButton *)sender;
-- (IBAction)checkboxEveryoneExecute:(NSButton *)sender;
+- (IBAction)menuShowHelp:(id)sender;
+
+- (IBAction)buttonNewProjectAction:(NSButton *)sender;
+- (IBAction)buttonOpenProjectAction:(NSButton *)sender;
+- (IBAction)buttonSaveProjectAction:(NSButton *)sender;
+- (IBAction)buttonBuildPKGAction:(NSButton *)sender;
+- (IBAction)buttonBuildDMGAction:(NSButton *)sender;
+
+- (IBAction)buttonBrowseSourceAction:(NSButton *)sender;
+- (IBAction)buttonBrowseTargetAction:(NSButton *)sender;
+- (IBAction)buttonBrowseRootAction:(NSButton *)sender;
+
+- (IBAction)comboboxOwnerAction:(NSComboBox *)sender;
+- (IBAction)comboboxGroupAction:(NSComboBox *)sender;
+- (IBAction)comboboxSignAction:(NSComboBox *)sender;
+
+- (IBAction)checkboxOwnerReadAction:(NSButton *)sender;
+- (IBAction)checkboxOwnerWriteAction:(NSButton *)sender;
+- (IBAction)checkboxOwnerExecuteAction:(NSButton *)sender;
+- (IBAction)checkboxGroupReadAction:(NSButton *)sender;
+- (IBAction)checkboxGroupWriteAction:(NSButton *)sender;
+- (IBAction)checkboxGroupExecuteAction:(NSButton *)sender;
+- (IBAction)checkboxEveryoneReadAction:(NSButton *)sender;
+- (IBAction)checkboxEveryoneWriteAction:(NSButton *)sender;
+- (IBAction)checkboxEveryoneExecuteAction:(NSButton *)sender;
+- (IBAction)checkboxProjectIsSignedAction:(NSButton *)sender;
 
 // Main functions
-- (void)NewProject;
-- (void)OpenProject;
-- (void)SaveProject;
-- (void)BuildPKG;
-- (void)BuildDMG;
-- (void)Browse;
-- (void)ReadUsers;
-- (void)ReadGroups;
-- (void)GetControls;
-- (void)SetControls;
-- (void)ValidateControls;
-- (void)ChangeRoot;
+- (void)newProject;
+- (void)openProject;
+- (void)saveProject;
+- (void)buildPKG;
+- (void)buildDMG;
+- (void)browseRoot;
+- (void)browseSource;
+- (void)browseTarget;
+- (void)readUsers;
+- (void)readGroups;
+- (void)readIdentities;
+- (void)getControls;
+- (void)setControls;
+- (BOOL)validateControls;
+- (void)changeRoot;
 
 @end

@@ -1,5 +1,5 @@
 //
-//  FilePicker.h
+//  UserGroup.h
 //  Packager
 //
 //  Created by Brian Buchholtz on 11/8/19.
@@ -8,17 +8,17 @@
 //
 //
 
-#ifndef FilePicker_h
-#define FilePicker_h
+#ifndef UserGroup_h
+#define UserGroup_h
 
 #import <Foundation/Foundation.h>
 
-@interface FilePicker : NSObject {
+@interface UserGroup : NSObject {
     
 }
 
-- (NSString *)getFile;
+- (NSArray *)getUserGroup:(NSString *)stringUserGroup;
 
 @end
 
-#endif /* FilePicker_h */
+#endif /* ParseOwner_h */

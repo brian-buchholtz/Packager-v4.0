@@ -16,11 +16,21 @@
 		532C3F981C470C3800A57614 /* PreviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532C3F931C470C3800A57614 /* PreviewView.xib */; };
 		5373D0AC1C47112E00353813 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5373D0AA1C47112E00353813 /* Credits.rtf */; };
 		53BEC0921C483578006A0122 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BEC0911C483578006A0122 /* PreviewViewController.m */; };
+		D30D92C623A9D26200EE19AE /* GeneratePlist.m in Sources */ = {isa = PBXBuildFile; fileRef = D30D92C523A9D26200EE19AE /* GeneratePlist.m */; };
+		D30D92C923AA763800EE19AE /* PlistWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = D30D92C823AA763800EE19AE /* PlistWrapper.m */; };
 		D31FABCC23A7D8F800865CF6 /* DDFileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FABCB23A7D8F800865CF6 /* DDFileReader.m */; };
-		D31FABCE23A9699A00865CF6 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D31FABCD23A9699A00865CF6 /* HeaderView.xib */; };
+		D31FABD723A9963D00865CF6 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D31FABD523A9963D00865CF6 /* HeaderView.xib */; };
+		D34523B023AC1ABB00CCD1B9 /* ShaSum.m in Sources */ = {isa = PBXBuildFile; fileRef = D34523AF23AC1ABB00CCD1B9 /* ShaSum.m */; };
+		D34523B323AC91BB00CCD1B9 /* FileSize.m in Sources */ = {isa = PBXBuildFile; fileRef = D34523B223AC91BB00CCD1B9 /* FileSize.m */; };
+		D34523B623ACA36000CCD1B9 /* SignPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = D34523B523ACA36000CCD1B9 /* SignPackage.m */; };
+		D3C2D85123D136F700E615AD /* Permissions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C2D85023D136F700E615AD /* Permissions.m */; };
+		D3C2D85323D2020F00E615AD /* Checklist.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D3C2D85223D2020F00E615AD /* Checklist.rtf */; };
+		D3C2D85523D78D7A00E615AD /* Help.html in Resources */ = {isa = PBXBuildFile; fileRef = D3C2D85423D78D7A00E615AD /* Help.html */; };
+		D3C9B11D23CFA88200DEC1FC /* PayloadSize.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C9B11C23CFA88200DEC1FC /* PayloadSize.m */; };
+		D3C9B12023D0CDB900DEC1FC /* SourceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C9B11F23D0CDB900DEC1FC /* SourceItem.m */; };
+		D3C9B12423D0F35C00DEC1FC /* Identities.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C9B12323D0F35C00DEC1FC /* Identities.m */; };
+		D3C9B12723D0F60000DEC1FC /* UserGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C9B12623D0F60000DEC1FC /* UserGroup.m */; };
 		D3F6B8C123A00A2F0047A481 /* FilePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F6B8AE23A00A2F0047A481 /* FilePicker.m */; };
-		D3F6B8C223A00A2F0047A481 /* ReadUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F6B8B023A00A2F0047A481 /* ReadUsers.m */; };
-		D3F6B8C323A00A2F0047A481 /* ReadGroups.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F6B8B223A00A2F0047A481 /* ReadGroups.m */; };
 		D3F6B8C423A00A2F0047A481 /* BuildPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F6B8B423A00A2F0047A481 /* BuildPackage.m */; };
 		D3F6B8C523A00A2F0047A481 /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F6B8B623A00A2F0047A481 /* Logger.m */; };
 		D3F6B8C623A00A2F0047A481 /* BrowsePath.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F6B8B823A00A2F0047A481 /* BrowsePath.m */; };
@@ -48,15 +58,33 @@
 		53BEC0911C483578006A0122 /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreviewViewController.m; path = Packager/PreviewViewController.m; sourceTree = "<group>"; };
 		53FE043A1C5033DE00096C1B /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Packager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packager.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D30D92C423A9D24000EE19AE /* GeneratePlist.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratePlist.h; sourceTree = "<group>"; };
+		D30D92C523A9D26200EE19AE /* GeneratePlist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratePlist.m; sourceTree = "<group>"; };
+		D30D92C723AA757600EE19AE /* PlistWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlistWrapper.h; sourceTree = "<group>"; };
+		D30D92C823AA763800EE19AE /* PlistWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlistWrapper.m; sourceTree = "<group>"; };
 		D31FABCA23A7D80000865CF6 /* DDFileReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDFileReader.h; sourceTree = "<group>"; };
 		D31FABCB23A7D8F800865CF6 /* DDFileReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileReader.m; sourceTree = "<group>"; };
-		D31FABCD23A9699A00865CF6 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
+		D31FABD623A9963D00865CF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Packager/Base.lproj/HeaderView.xib; sourceTree = "<group>"; };
+		D34523AE23AC1AA800CCD1B9 /* ShaSum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaSum.h; sourceTree = "<group>"; };
+		D34523AF23AC1ABB00CCD1B9 /* ShaSum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShaSum.m; sourceTree = "<group>"; };
+		D34523B123AC919D00CCD1B9 /* FileSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileSize.h; sourceTree = "<group>"; };
+		D34523B223AC91BB00CCD1B9 /* FileSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSize.m; sourceTree = "<group>"; };
+		D34523B423ACA34600CCD1B9 /* SignPackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignPackage.h; sourceTree = "<group>"; };
+		D34523B523ACA36000CCD1B9 /* SignPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignPackage.m; sourceTree = "<group>"; };
+		D3C2D84F23D136EB00E615AD /* Permissions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Permissions.h; sourceTree = "<group>"; };
+		D3C2D85023D136F700E615AD /* Permissions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Permissions.m; sourceTree = "<group>"; };
+		D3C2D85223D2020F00E615AD /* Checklist.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Checklist.rtf; sourceTree = "<group>"; };
+		D3C2D85423D78D7A00E615AD /* Help.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Help.html; sourceTree = "<group>"; };
+		D3C9B11B23CFA85B00DEC1FC /* PayloadSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayloadSize.h; sourceTree = "<group>"; };
+		D3C9B11C23CFA88200DEC1FC /* PayloadSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayloadSize.m; sourceTree = "<group>"; };
+		D3C9B11E23D0CDA900DEC1FC /* SourceItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceItem.h; sourceTree = "<group>"; };
+		D3C9B11F23D0CDB900DEC1FC /* SourceItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceItem.m; sourceTree = "<group>"; };
+		D3C9B12223D0F34800DEC1FC /* Identities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Identities.h; sourceTree = "<group>"; };
+		D3C9B12323D0F35C00DEC1FC /* Identities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Identities.m; sourceTree = "<group>"; };
+		D3C9B12523D0F5E700DEC1FC /* UserGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserGroup.h; sourceTree = "<group>"; };
+		D3C9B12623D0F60000DEC1FC /* UserGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserGroup.m; sourceTree = "<group>"; };
 		D3F6B8AD23A00A2F0047A481 /* FilePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilePicker.h; sourceTree = "<group>"; };
 		D3F6B8AE23A00A2F0047A481 /* FilePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilePicker.m; sourceTree = "<group>"; };
-		D3F6B8AF23A00A2F0047A481 /* ReadUsers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadUsers.h; sourceTree = "<group>"; };
-		D3F6B8B023A00A2F0047A481 /* ReadUsers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadUsers.m; sourceTree = "<group>"; };
-		D3F6B8B123A00A2F0047A481 /* ReadGroups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadGroups.h; sourceTree = "<group>"; };
-		D3F6B8B223A00A2F0047A481 /* ReadGroups.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadGroups.m; sourceTree = "<group>"; };
 		D3F6B8B323A00A2F0047A481 /* BuildPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuildPackage.h; sourceTree = "<group>"; };
 		D3F6B8B423A00A2F0047A481 /* BuildPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuildPackage.m; sourceTree = "<group>"; };
 		D3F6B8B523A00A2F0047A481 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
@@ -118,8 +146,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D3C2D85223D2020F00E615AD /* Checklist.rtf */,
 				D3F6B8CB23A00E470047A481 /* Assets.xcassets */,
 				532C3F8C1C470C2F00A57614 /* Info-Packager.plist */,
+				D3C2D85423D78D7A00E615AD /* Help.html */,
 				5373D0AA1C47112E00353813 /* Credits.rtf */,
 				532C3F8F1C470C3800A57614 /* InfoPlist.strings */,
 				53FE043A1C5033DE00096C1B /* ReadMe.md */,
@@ -132,6 +162,8 @@
 			children = (
 				D31FABCA23A7D80000865CF6 /* DDFileReader.h */,
 				D31FABCB23A7D8F800865CF6 /* DDFileReader.m */,
+				D30D92C723AA757600EE19AE /* PlistWrapper.h */,
+				D30D92C823AA763800EE19AE /* PlistWrapper.m */,
 			);
 			name = "Open Source";
 			sourceTree = "<group>";
@@ -149,12 +181,26 @@
 				D3F6B8B823A00A2F0047A481 /* BrowsePath.m */,
 				D3F6B8BF23A00A2F0047A481 /* SaveAs.h */,
 				D3F6B8C023A00A2F0047A481 /* SaveAs.m */,
-				D3F6B8AF23A00A2F0047A481 /* ReadUsers.h */,
-				D3F6B8B023A00A2F0047A481 /* ReadUsers.m */,
-				D3F6B8B123A00A2F0047A481 /* ReadGroups.h */,
-				D3F6B8B223A00A2F0047A481 /* ReadGroups.m */,
+				D3C9B12523D0F5E700DEC1FC /* UserGroup.h */,
+				D3C9B12623D0F60000DEC1FC /* UserGroup.m */,
+				D3C9B12223D0F34800DEC1FC /* Identities.h */,
+				D3C9B12323D0F35C00DEC1FC /* Identities.m */,
+				D3C9B11E23D0CDA900DEC1FC /* SourceItem.h */,
+				D3C9B11F23D0CDB900DEC1FC /* SourceItem.m */,
 				D3F6B8B323A00A2F0047A481 /* BuildPackage.h */,
 				D3F6B8B423A00A2F0047A481 /* BuildPackage.m */,
+				D34523B423ACA34600CCD1B9 /* SignPackage.h */,
+				D34523B523ACA36000CCD1B9 /* SignPackage.m */,
+				D3C9B11B23CFA85B00DEC1FC /* PayloadSize.h */,
+				D3C9B11C23CFA88200DEC1FC /* PayloadSize.m */,
+				D34523B123AC919D00CCD1B9 /* FileSize.h */,
+				D34523B223AC91BB00CCD1B9 /* FileSize.m */,
+				D34523AE23AC1AA800CCD1B9 /* ShaSum.h */,
+				D34523AF23AC1ABB00CCD1B9 /* ShaSum.m */,
+				D30D92C423A9D24000EE19AE /* GeneratePlist.h */,
+				D30D92C523A9D26200EE19AE /* GeneratePlist.m */,
+				D3C2D84F23D136EB00E615AD /* Permissions.h */,
+				D3C2D85023D136F700E615AD /* Permissions.m */,
 				D3F6B8B523A00A2F0047A481 /* Logger.h */,
 				D3F6B8B623A00A2F0047A481 /* Logger.m */,
 				D3F6B8BD23A00A2F0047A481 /* AppendFile.h */,
@@ -190,7 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				532C3F911C470C3800A57614 /* MainMenu.xib */,
-				D31FABCD23A9699A00865CF6 /* HeaderView.xib */,
+				D31FABD523A9963D00865CF6 /* HeaderView.xib */,
 				532C3F931C470C3800A57614 /* PreviewView.xib */,
 			);
 			name = "User Interface";
@@ -250,7 +296,9 @@
 				5373D0AC1C47112E00353813 /* Credits.rtf in Resources */,
 				532C3F981C470C3800A57614 /* PreviewView.xib in Resources */,
 				532C3F961C470C3800A57614 /* InfoPlist.strings in Resources */,
-				D31FABCE23A9699A00865CF6 /* HeaderView.xib in Resources */,
+				D31FABD723A9963D00865CF6 /* HeaderView.xib in Resources */,
+				D3C2D85323D2020F00E615AD /* Checklist.rtf in Resources */,
+				D3C2D85523D78D7A00E615AD /* Help.html in Resources */,
 				D3F6B8CC23A00E470047A481 /* Assets.xcassets in Resources */,
 				532C3F971C470C3800A57614 /* MainMenu.xib in Resources */,
 			);
@@ -263,22 +311,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D34523B323AC91BB00CCD1B9 /* FileSize.m in Sources */,
 				532C3F881C470C1F00A57614 /* FileSystemBrowserCell.m in Sources */,
 				532C3F891C470C1F00A57614 /* FileSystemNode.m in Sources */,
 				D3F6B8C723A00A2F0047A481 /* Settings.m in Sources */,
 				53BEC0921C483578006A0122 /* PreviewViewController.m in Sources */,
 				D31FABCC23A7D8F800865CF6 /* DDFileReader.m in Sources */,
 				D3F6B8C623A00A2F0047A481 /* BrowsePath.m in Sources */,
-				D3F6B8C323A00A2F0047A481 /* ReadGroups.m in Sources */,
+				D30D92C923AA763800EE19AE /* PlistWrapper.m in Sources */,
+				D34523B023AC1ABB00CCD1B9 /* ShaSum.m in Sources */,
 				D3F6B8CA23A00A2F0047A481 /* SaveAs.m in Sources */,
-				D3F6B8C223A00A2F0047A481 /* ReadUsers.m in Sources */,
 				D3F6B8C123A00A2F0047A481 /* FilePicker.m in Sources */,
 				532C3F8B1C470C2500A57614 /* main.m in Sources */,
+				D3C2D85123D136F700E615AD /* Permissions.m in Sources */,
 				D3F6B8C423A00A2F0047A481 /* BuildPackage.m in Sources */,
 				D3F6B8C823A00A2F0047A481 /* Project.m in Sources */,
 				532C3F871C470C1F00A57614 /* AppController.m in Sources */,
+				D3C9B12423D0F35C00DEC1FC /* Identities.m in Sources */,
+				D3C9B12023D0CDB900DEC1FC /* SourceItem.m in Sources */,
 				D3F6B8C523A00A2F0047A481 /* Logger.m in Sources */,
 				D3F6B8C923A00A2F0047A481 /* AppendFile.m in Sources */,
+				D3C9B11D23CFA88200DEC1FC /* PayloadSize.m in Sources */,
+				D30D92C623A9D26200EE19AE /* GeneratePlist.m in Sources */,
+				D3C9B12723D0F60000DEC1FC /* UserGroup.m in Sources */,
+				D34523B623ACA36000CCD1B9 /* SignPackage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +371,14 @@
 				5373D0AB1C47112E00353813 /* en */,
 			);
 			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		D31FABD523A9963D00865CF6 /* HeaderView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D31FABD623A9963D00865CF6 /* Base */,
+			);
+			name = HeaderView.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
