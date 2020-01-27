@@ -71,7 +71,7 @@
         
     }
     
-    [Logger setLogEvent:@"Reading identities", nil];
+    [Logger setLogEvent:@"Parsing identities", nil];
     
     return arraySecurity;
     
